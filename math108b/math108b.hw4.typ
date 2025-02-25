@@ -45,7 +45,7 @@ In general: \
 
 2. Second, let $v in (S^perp)^perp $
 
-Since $S$ is a subset and not a subspace, we do not know if $S + S^perp$ form a direct sum of $V$ . Although it is clear that $v in.not S^perp$ it is possible that $v in.not S$ since $V$ may be a union of $S union S^perp union S_0 union ...dots union S_n$ where $S, S^perp, S_0 ... S_n$ are disjoint. \
+Since $S$ is a subset and not a subspace, we do not know if $S + S^perp$ form a direct sum of $V$ and it is also not guaranteed that $S union S^perp = V$ . Although it is clear that $v in.not S^perp$ it is possible that $v in.not S$ since $V$ may be a union of $S union S^perp union S_0 $ for some $S_0 subset V$ 
 
 We can conclude that in general, $(S^perp)^perp subset.not S$ 
 
@@ -83,7 +83,7 @@ Define a new projection operator from $RR^2$ onto the subspace $U={(x,y) in RR^2
 
 The projection of one vector onto another is defined in $RR^2$ with standard dot product as  $(a dot b)/(b dot b) b$ where $a$ is projected onto $b$. Here we are trying to project $a=(x,y)$ onto $b=(1,1)$ so $(x,y) dot (1,1) = x + y$ and $(1,1) dot (1,1) = 2$. Therefore,       
 
-we can define $P_U ((x,y)) = ((x+y)/2, (x+y)/2)$ since $P_U (P_U (x,y)) = P_U ((x+y)/2, (x+y)/2) = ((2(x+y))/2, (2(x+y))/2) = ((x+y)/2, (x+y)/2) = P_U (x,y)$  
+we can define $P_U ((x,y)) = ((x+y)/2, (x+y)/2)$ since $P_U (P_U (x,y)) = P_U ((x+y)/2, (x+y)/2) = ((2(x+y))/4, (2(x+y))/4) = ((x+y)/2, (x+y)/2) = P_U (x,y)$  
 
 ]) #pagebreak()
 
@@ -119,13 +119,46 @@ Alternatively, assume $x eq.not 0 in V_1 times V_2 times V_3$ and try to show th
 
 #note([In class, given a closed convex set $C$ in a vector space $V$ equipped with an induced norm $||dot||$, we define the orthogonal projection $P_C: V arrow V$ that maps a vector $x in V$ to a vector $y^* in C$ by $ P_C (x) = y^* = argmin_(y in C) ||x-y|| $        ])
 
+#thm([orthogonal projection characterization],[
+Given a closed convex subset $C$ of $V$, for every $x in V$ we have $ z = P_C (x) arrow.double.l.r angle.l y-z, x-z angle.r lt.eq 0 forall y in C $     
+
+],[])
+
 #prob([
 
 Use the characterization theorem for the orthogonal projection to show that for a given cloased convex set $C$, for any $x,y in V$ we have $ ||P_C (x) - P_C (y)|| lt.eq ||x-y|| $   
 
-],[])
+],[
+
+\ By the projection characterization theorem we have that \
+
+$angle.l x - P_C (x), P_C (y) - P_C (x) angle.r lt.eq 0$ since $P_C (y) in C$ and additionally, \
+
+$angle.l y - P_C (y), P_C (x) - P_C (y) angle.r lt.eq 0$ since $P_C (x)in C$ \ 
+
+Factoring $-1$ from the second inequality gives \
+
+$angle.l P_C (y) - y, P_C (y) - P_C (x) angle.r lt.eq 0$ and then we can use linearity (first slot) of inner products to obtain from the first equation: \
+
+$angle.l x - y - P_C (x) + P_C (y), P_C (y) - P_C (x) angle.r lt.eq 0$ and apply linearity again to obtain \
+
+$angle.l x - y, P_C (y) - P_C (x) angle.r + ||P_C (y) - P_C (x)||^2 lt.eq 0$ \
+
+$ ||P_C (y) - P_C (x)||^2 lt.eq - angle.l x - y, P_C (y) - P_C (x) angle.r$ \
+
+
+$ ||P_C (y) - P_C (x)||^2 lt.eq  angle.l -x + y, P_C (y) - P_C (x) angle.r$ and by Cauchy-Schwarz \
+
+$ ||P_C (y) - P_C (x)||^2 lt.eq  angle.l -x + y, P_C (y) - P_C (x) angle.r lt.eq ||-x + y|| ||P_C (y) - P_C (x)||$ \ 
+
+Then dividing both sides by $||P_C (y) - P_C (x)||$ and multiplying by -1  proves the desired result.
+
+
+
+
+])
 #prob([
 
 If one interprets the norm $||x-y||$ as the distance between $x$ and $y$, interpret the meaning of the above inequality.   
 
-],[])
+],[\ The orthogonal projection map is a contraction. (of the vector connecting $x$ and $y$  )])

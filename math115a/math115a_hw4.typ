@@ -57,7 +57,8 @@ $(arrow.double.l)$ Suppose that $n = 2^k$ then we showed in class that $phi.alt(
 
 ])
 
-https://math.stackexchange.com/questions/2578183/is-this-proof-even-valid-is-it-true-that-all-odd-numbers-can-be-uniquely-expres
+https://math.stackexchange.com/a/2578189
+
 
 #pagebreak()
 #note([The totient function $phi.alt(n)$ count the number of COPRIME integers to n where $n in ZZ^+$ ])

@@ -134,3 +134,29 @@ https://avanthioslab.blogspot.com/2016/09/mvt-and-mft-memory-management-techniqu
 
 swapping: store some processes on disk \
 
+== Feb 11
+
+Disk seek time \
+
+track on a sector, platter on a track, 
+
+== Feb 13
+
+inodes point to the locations in memory \
+
+we will study system5 file system \
+
+superblock, ilist, and other datablocks \
+
+ilist consists of inodes \
+
+disk partitioning: two file systems in one disk \
+
+there are also ext2, ext3, etc. filesystems \
+
+sysV: skips 512 data blocks (4k each) and writes the next for every 512 \
+
+each inode represents 1 file \
+
+largest file in the system? (review slide 46 on fs slidesd)
+

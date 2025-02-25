@@ -6,6 +6,9 @@
 #let author = "Alice Bob"
 
 #show: notes.with(title, author)
+#env_headers.update("classic")
+#env_colors.update("classic")
+
 
 == January 7
 
@@ -521,7 +524,7 @@ i.e. $x^(phi.alt(m)) dot alpha_1 dots alpha_(phi.alt(m)) equiv alpha_1 dots alph
 We have $3^8 equiv 1 (mod 20)$ and (note that  $3^8 = 6561$)])
 
 
-#thm([Wilson's Theofrem],[If $p$ is a prime, then $(p-1)! equiv 1 (mod p)$  ],[
+#thm([Wilson's Theofrem],[If $p$ is a prime, then $(p-1)! equiv -1 (mod p)$  ],[
 
 Suppose that $p>3$. (the cases $p=2,3$ are clear.) \
 
@@ -685,7 +688,7 @@ The Mobius function $mu: ZZ^+ arrow Z$ is defined by \
 0 if $p^2 divides n $ for some prime $p$ \
 $(-1)^r$ if $n = p_1 p_2 dots p_r$ where the $p_i$ are distinct primes. \
 
-For example $mu(2) = 1, mu(6) = 1, mu(4) = 0$ 
+For example $mu(2) = -1, mu(6) = 1, mu(4) = 0$ 
 
 ])
 
@@ -697,7 +700,7 @@ Suppose therefore that $m,n$ are such that $m = p_1 dot p_r$, $n = q_1 dots q_s$
 
 ])
 
-#thm([],[For each positive integer $n gt.eq 1$, we have $sum_(d divides n) mu(d) = 1 "if n=1", 0 "if n > 1"$  ],[
+#thm([],[For each positive integer $n gt.eq 1$, we have $sum_(d divides n) mu(d) = 1 "if n=1",sum_(d divides n) mu(d) =  0 "if n > 1"$  ],[
 
 First observe that $sum_(d divides 1) mu(d) = mu(1) = 1$. \
 
@@ -708,7 +711,7 @@ So if $n gt 1$ with $n = p_1^(k_1) dots p_r^(k_r)$ then $F(n) = F(p_1^(k_1)) dot
 ])
 
 #thm([Mobius Inversion Formula],[
-Suppose that $f$ and $F$ are two (not necessarily multiplicative!) functions $f, F: ZZ^+ arrow ZZ$ related by the function $F(n) = sum_(d divides r) f(d)$. Then $f(n) = sum_(d divides n) mu(d) F(n/d) = sum_(d divides n) mu (n/d) F(d)$     
+Suppose that $f$ and $F$ are two (not necessarily multiplicative!) functions $f, F: ZZ^+ arrow ZZ$ related by the function $F(n) = sum_(d divides n) f(d)$. Then $f(n) = sum_(d divides n) mu(d) F(n/d) = sum_(d divides n) mu (n/d) F(d)$     
 ],[
 
 Proof: compute $ sum_(d divides n) mu(d) F(n/d) = sum_(d divides n) (mu(d) sum_(c divides (n/d)) f(c) = sum_(d divides n) ( sum_(c divides (n/d)) mu(d) f(c)) (dagger) $ \
@@ -722,4 +725,610 @@ Hence  $ sum_(d divides m) (sum_(c divides n/d) mu(d) f(c)) = sum_(d divides n) 
 Now apply $star$ to the RHS of $(dagger)$ to obtain: $sum_(c divides n)(f(c) sum_(d divides n/c) mu(d) = sum_(c divides n) f(c) sum_(d divides n/c) mu(d) = f(n)$ as required.
 ])
 
+== Feb 11
 
+#thm([Mobius Inversion Formula],[
+
+Suppose that $F$ and $f $ are two arithmetic functions (not necessarily multiplicative!) such that $f, F: ZZ^+ arrow ZZ$ Assume that $f $ and $F $ are related by the formula $F(n) = sum_(d divides n) f(d)$. \
+
+Then $ f(n) = sum_(d divides n) mu(d) F(n/d) = sum_(d divides n) mu (n/d) F(d) $ 
+
+],[])
+
+#example([
+
+],[Recall that $d(n) = sum_(d divides n) 1$ and $sigma(n) = sum_(d divides n) d$. \ Then by Mobius inversion, we have that $1 = sum_(c divides n) mu (n/c) d(c)$ and $n = sum_(d divides n) mu (n/d) sigma(d)$  (?) 
+
+])
+
+#theorem([],[Suppose that $F$ is a multiplicative function, and that $F(n) = sum_(d divides n) f(d)$ for some $f$. Then, $f$ is also multiplicative    ],[
+
+Suppose that $m,n in ZZ^+$ with $(m,n) = 1$. Then $ f(m n) = sum_(d divides m n) mu(d) F((m n)/d) = sum_(d_1 divides m, d_2 divides n) mu(d_1 d_2) F((m n)/(d_1 d_2)) = sum_(d_1 divides m, d_2 divides n) mu(d_1) mu(d_2) F(m/d_1) F(n/d_2) = \ sum_(d_1 divides m) mu(d_1) F(m/d_1) sum_(d_2 divides m) mu(d_2) F(n/d_2) = f(m) f(n) $ 
+
+])
+
+#cor([],[The function $phi.alt$ is multiplicative ],[
+
+Earlier we used a counting argument to show that $n = sum_(d divides n) phi.alt(d)$ \
+
+This argument did not appeal to the fact that $phi.alt$ is multiplicative! \
+
+Since $F(n) = n$ is clearly multiplicative, it follows that $phi.alt$ is multiplicative.  
+
+])
+
+#theorem([],[For any positive integer $n$, we have $phi.alt(n) = n sum_(d divides n) mu(d)/d$  ],[
+
+
+Apply the Mobius inversion formula to $F(n) = n = sum_(d divides n) phi.alt(d)$ \
+
+The result if $phi.alt(n) = sum_(d divides n) mu(d) F(n/d) = sum_(d divides n) mu(d) n/d$ \
+
+])
+
+#remark([We can determine the value of $phi.alt(n)$. Suppose that $n = p_1^q_1 dots p_k^q_k$. Then applying the last theorem gives us $ sum_(d divides n) (mu(d))/d = prod_(i = 1)^k (mu(1) + (mu(p_2))/p_2 + mu(p_i^2)/p_i^2 + dots + mu(p_i^q_i)/p_i^q_i ) $ Hence $phi.alt(n) = n sum_(d divides n) mu(d)/d = n prod_(i=1)^k (1-1/p_i)$   ])
+
+
+=== Primitive Roots and Indices
+
+#note([Recall: suppose that $n gt 1$ and that $(a,n) = 1$. Then the order of $a (mod n)$ is the smallest positive integer $k$ such that $a^k equiv 1 (mod n)$]) \
+
+#theorem([],[Suppose that $a$ has order $k (mod n)$. Then $a^h equiv 1 iff k divides h$. In particular $k divides phi.alt(n)$     ],[
+
+For any $h in ZZ^+$ we may write $h = q k + r$ where $0 lt.eq r lt k$ \
+
+Then $a^h equiv 1 (mod n) iff a^(q k + r) equiv 1 (mod n) iff a^r equiv 1 (mod n) iff r = 0$ 
+
+
+])
+
+#cor([],[Suppose that $a$ has order $k$ ($mod n$). Then $a^i equiv a^j (mod n) iff i equiv j (mod k)$   ],[
+
+Suppose that $i gt.eq j$ then $a^i equiv a^j (mod n) iff a^(i-j) equiv 1 (mod n) iff k divides (i - j) iff i equiv j (mod k)$  
+
+])
+
+#cor([],[If $a $ has order $k (mod n)$ then the integers $a, a^2, a^3, dots a^k$ are pairwise incongruent modulo $n$   ],[
+])
+
+#theorem([],[
+Suppose that $a$ has order $k (mod n)$, and that $h gt 0 $. Then we claim that $a^h $ has order $ k / ((h,k)) (mod n) $      
+
+],[
+
+Set $d = (h,k)$. Then we may write $h = h_1 d, k = k_1 d$ with $(h_1, k_1) = 1$ \
+
+Note that $ (a^h)^(k_1) = (a^(h_1 d))^(k/d) = (a^k)^(h_1) equiv 1 (mod n)$. So if $r$ is the order of $a^h (mod n)$, then $r divides k_1 (star)$ \
+
+On the other hand, $a^(h r) = (a^h)^r equiv 1 (mod n)$ and so $k divides h r$ i.e. $k_1 d divides h_1 d r$  i.e. $k_1 divides h_1 r$. Since $(h_1, k_1) = 1 $ this implies that $k_1 divides r$, so $k = k_1 d = r d $. Then $"it follows from" (star) "that" r = k/d = k/((h, k))$, as claimed. \      
+
+
+])
+
+#cor([],[Suppose that $a $ has order $k mod (n)$. Then $a^h$ has order $k (mod n)$ if any only if $(h, k ) = 1$    ],[])
+
+#example([Of the above],[
+
+We can first make a table that integers $1,2,3,4,5,6,7,8,9,10,11,12$ have order $1,12,3,6,4,12,12,4,3,6,12,2$ \  
+
+By the previous theorem, \
+
+The order of $2 (mod 13)$ is $12$ \
+
+The order of $2^2 (mod 13)$ is $12/((2,12)) = 12/2 = 6$ \ 
+
+The order of $2^3 (mod 13)$ is $12/((3, 12)) = 12/3 = 4$   \
+
+The integers having order 12 (mod 13) are powers of $2^k$ for which $(k,12) = 1$ i.e. $2^1 equiv 2, 2^2 equiv 6, 2^3 equiv 11, 2^11 equiv 7 (mod 13)$ (here the congruences denote a mapping to the order)   
+
+])
+
+#defn([],[If $(a,n) = 1$ and $a$ has order $phi.alt(n) (mod n)$ then we say that $a$ is a primitive root $(mod n)$ \
+
+i.e. $a$ is a primitive root $(mod n)$ if $a^(phi.alt(n)) equiv 1 (mod n) $ but $a^k equiv.not 1 (mod n) forall 1 lt.eq k lt phi.alt(n)$ \
+
+For example $2$ is a primitive root $(mod 13)$             ])
+
+#prop([
+
+Suppose that $n gt 1$ such that $p = 2^2^n + 1 $ is prime. Then 2 is not a primitive root $(mod p)$   
+
+
+],[
+
+Since $2^2^(2 n + 1) - 1 = (2^2^n + 1)(2^2^n - 1) = p (2^2^n - 1)$  \ 
+
+We have that $2^2^(n+1) equiv 1 (mod p)$. So the order of 2 $(mod p)$ is at most $2^(n+1)$ \
+
+On the other hand, since $p$ is prime, we have $phi.alt(p) = p-1 = 2^2^n $ Now since $2^2^n gt 2^(n+1)$ (prove this!), it follows that 2 is not a primitive root $(mod p)$   
+
+])
+
+#theorem([],[Suppose that $(a,n)=1$ and let $alpha_1, alpha_2, dots, alpha_(phi.alt(n))$ be the set of positive integers less than $n$ and coprime to $n$. If a is a primitive root $(mod n)$ then the set $a, a^2, dots, a^(phi.alt(n))$ is congruent $mod n$ to $alpha_1, dots, alpha_(phi.alt(n))$ in some order.         ],[])
+
+#corollary([],[
+
+Suppose that a primitive root $(mod n)$ exists. Then there are exactly $phi.alt(phi.alt(n))$ primitive roots $(mod n)$  
+
+],[
+Suppose that $a $ is a primitive root $(mod n)$ Then any other primitive root lies in the set ${a, a^2, dots, a^(phi.alt(n))}$ The number of powers $a^k (1 lt.eq k lt.eq phi.alt(n))$ that have order $phi.alt(n) = $the number of integers $k (1 lt.eq k lt.eq phi.alt(n))$ for which $(k, phi.alt(n)) = 1 = phi.alt(phi.alt(n))$        
+])
+
+== Feb 13
+
+Primitive roots moudlo primes
+
+#theorem([],[We can show that there exists a primitive root modulo every prime $p$ ],[])
+
+#theorem([Lagrange],[
+
+Suppose that $p $ is a prime and that  $f(x) = a_n x^n + a_(n-1) x^(n-1) + dots + a_0$ where $a_i in ZZ, a_n equiv.not 0 (mod p)$ \
+
+Then the congruence $f(x) equiv 0 (mod p) (dagger)$ has at most $n$ distinct solutions modulo $p$    
+
+],[
+
+This is related to the fact that a polynmial of degree $n$ has at most $n$ solutions. This theorem is a "modulo" version of that  
+
+The proof is by induction on the degree $n$ of $f(x)$ \
+
+Suppose that $n = 1$ Then $f(x) = a_1 x + a_0$. Since $(a_1, p) = 1$ the congruence $f(x) equiv 0 (mod p)$ has a unique solution $mod p$   
+
+Now suppose that $"degree of" f(x) = k$, and that the result holds for all polynomials of degree at most $k-1$ \
+
+If $(dagger)$ has no solutions, then we are done. \
+
+Next, suppose that $x equiv a (mod p)$ is a solution of $(dagger)$ \
+
+Then $f(x) = (x - a) q(x) + r$, with the degree of $q(x) = k-1$ \
+
+We have $f(a) equiv 0 (mod p)$ and this implies that $r equiv 0 (mod p)$ Hence $f(x) equiv (x-a) q(x) (mod p)$ \
+
+Now if $x equiv b (mod p)$ is a solution of $(dagger)$, with $b equiv.not a (mod p)$, then we have $f(b) equiv 0 (mod p) arrow.double (b-a)q(b) equiv 0 (mod p) arrow.double q(b) equiv 0 (mod p)$ \
+
+So any solution of $(dagger)$that is different from $a$ must satisfy $q(x) equiv 0 (mod p) (star)$ 
+
+Since, by our inductive hypothesis, $(dagger)$ has at most $k-1$ distinct solutions $(mod p)$, then it follows that $(dagger)$ has at most $k$ distinct solutions $mod p$ \
+
+This completes the induction step, and so the theorem follows by induction
+
+])
+
+#corollary([],[Suppose that $p$ is a prime and that $d divides (p-1)$, then the congruence $x^d - 1 equiv 0 (mod p)$ has exactly $d$ solutions.    ],[
+
+Since $d divides (p-1)$, we have $p-1 = d k$ for some $k$ \
+
+Therefore $x^(p-1) -1 = (x^d -1) f(x)$ where $f(x) = x^(d(k-1)) + x^(d(k-2)) + dots + x^d + 1$ \ and degree of $f(x) = d(k-1) = p-1-d$  \
+
+Therefore Langrange's theorem implies that $f(x) $ has at most $p-1-d$ distinct solutions $(mod p)$ \
+
+Euler's theorem implies that $x^(p-1) - 1$ has exactly $p-1 $ distinct roots $(mod p)$ \
+
+Hence $x^d - 1$ has at least $(p-1)-(p-1-d)=d$ distinct roots $(mod p)$   
+
+])
+
+#theorem([Alternative proof of wilson's theorem],[
+
+Recall that Wilson's theorem says that $(p-1)! equiv -1 (mod p)$ is $p$ is prime. \  
+
+
+],[
+
+
+Define a polynomial $f(x) = (x-1)(x-2) dots (x-(p-1)) - (x^(p-1) -1) = alpha_(p-2) x^(p-2) + alpha_(p-3) x^(p-3) + dots plus alpha_1 x plus alpha_0$ with degree $p-2$ \
+
+Fermat's little theorem implies that the congruence $f(x) equiv 0 (mod p)$ has solutions $1,2,3,dots,p-1$ $(mod p)$, these are all distinct solutions and therefore contradict Langrange's theorem (unless $alpha_(p-2) = alpha_(p-3) = dots = alpha_0 (mod p)  $ i.e. $f(x) = 0$)
+
+Therefore for all integers $x$ we have $f(x) equiv 0 (mod p)$ and taking $x = 0$ gives $(-1)(-2)dots(-(p-1))+1 equiv 0 (mod p)$  i.e. $(-1)^(p-1) (p-1)! equiv -1 (mod p)$ i.e. $(p-1)! equiv -1 (mod p)$    
+
+])
+
+#theorem([],[Suppose that $p$ is a prime and that $d divides (p-1)$ \
+
+Then there exist exactly $phi.alt(d) $ distinct integers $mod p$ that have order $d mod p$  
+
+ ],[
+
+We have shown that the congruence $x^d equiv 1 (mod p)$ has exactly $d$ solutions. \
+
+For each $c divides d$ let $psi(c)=$the number of integers in the set $1,2,dots,p-1 $ that have order $c $ 
+
+Then $d = sum_(c divides d) psi(c)$ 
+
+Applying Mobius inversion gives $psi(d) = sum_(c divides d) mu(c) dot d/c = phi.alt(d)$
+
+#example([],[
+Let $p=13$ then 1 has order 1, 12 has order 2, 3 and 9 have order 3, 5 and 8 have order 4, 4 and 10 have order 6, and 2,6,7,11 have order 12 \
+
+Then we can easily check that (i) $sum_(d divides 12) psi(d) = 12$  and that (ii) $psi(d) = phi.alt(d) forall d divides 12$  \
+])
+
+#corollary([],[If $p $ is a prime, then there are exactly $phi.alt(p-1)$ primitive roots $mod p$ 
+  ],[])
+
+#example([],[If $p $ is a prime of the form $4k + 1 $ then $x^2 equiv -1 (mod p)$ has a solution \
+
+Proof: We have that $4 divides (p-1)$, so there exists an integer $a$ such that $a$ has order $4 mod p$ Then \ $a^4 equiv 1 (mod p) iff (a^2-1)(a^2+1) equiv 0 (mod p)$ \
+
+Now if $a^2 - 1 equiv 0 (mod p)$ then $a$ has order $2 mod p$ which is a contradiction. So $a^2 + 1 equiv 0 (mod p)$ i.e. $a^2 equiv -1 (mod p)$    
+
+ ])
+
+ ])
+
+#pagebreak()
+some additional remarks ...
+
+ #remark([
+
+Why does the decimal expansion of $1/7 = 0.14285714 dots$ have period 6, while $1/11 = 0.0909 dots$ have period 2? \
+
+Suppose that $p$ is a prime, and that 10 has order $k mod p$ i.e. $10^k equiv 1 (mod p)$ and $k$ is the smallest positive integer for which this holds. Then $10^k - 1 = N p$ for some $N in ZZ_(gt.eq 0)$  \
+
+Therefore $ 1/p = N/(10^k -1) = N/10^k dot 1/(1-1/10^k) = N/10^k (1 + 1/10^k + 1/10^(2 k) + dots) $ Since $1/p < 1 $ we must have $N/ 10^k lt 1 $ i.e. $N/10^k = 0.alpha_1 alpha_2 dots alpha_k$ say. \
+
+So $1/p = (0.alpha_1 alpha_2 dots alpha_k) (1 + 1/10^k + 1/10^(2k) dots + dots)$ \
+
+We therefore see that the decimal expansion of $1/p$ has period $k$  \
+
+Consequence: Since Euler's theorem implies that $10^(p-1) equiv 1 (mod p)$ we have $1 lt.eq k lt.eq p-1$ \
+
+The decimal expansion of $1/p $ has period $p-1 $ if and only if $10 $ is a primitive root $$mod p 
+
+Conjecture: This happens for infinitely many primes.
+
+ ]) 
+
+ #problem([Given any non-zero integer $a $ other than $1,-1,$ or a perfect square, there exist infinitely many primes $p$ such that $a$ is a primitive root $mod p$    ],[
+
+   \ This is an open problem
+ ])
+
+#theorem([],[One of 2,3,5 is a primitive root $mod p$ for inifintely many primes $p$   ],[
+See Murty "Artin's conjecture for primitive roots" in mathematical intelligences vol 10 no 4 (Fall 1988)
+
+
+])
+
+== Feb 18
+
+#example([],[2 is a primitive root mod 9 \
+
+For which composite numbers $n $ do there exist primitive roots mod $n$  ? \
+
+
+])
+#lemma([],[If $a$ is an odd integer and $k gt.eq 3$, then $ a^(2^(k-1)) equiv 1 (mod 2^k) (dagger) $   ],[
+
+The proof is by induction on $k$ \
+
+If $k=3$ the congruence is $a^2 equiv 1 (mod 8)$ \
+
+Suppose that $(dagger)$ holds for some $k gt.eq 3 $ then \
+
+Then for some $b in ZZ_(gt 0)$ we have  $ a^2^(k-2) = 1+ b dot 2^k $ 
+
+Hence $ (a^2^(k-2))^2 = (1 + b dot 2^k)^2 arrow.double a^2^(k-1) = 1 + 2^(k+1) (b + b^2 dot 2^(k-1)) equiv 1 (mod 2^(k+1)) $ 
+
+Hence if $(dagger)$ holds for some $k gt.eq 3$, then it also holds for $k+1$, and the result now follows by induction \
+
+])
+#theorem([],[If $k gt.eq 3 $ then there are no primitive roots mod $2^k$  ],[
+
+The integers corpime to $2^k $ are precisely the odd integers. Furthermore $phi.alt(2^k) = 2^(k-1)$ \
+
+If $a$ is odd, then the lemma implies that $ a^(phi.alt(2^k)\/2) = a^((2^k-1)\/2) = a^(2^(k-2)) equiv 1 (mod 2^k)$  
+
+Therefore there are no primitive roots mod $2^k$ 
+
+])
+
+#theorem([],[If $m gt 2 $ and $n gt 2 $ with $(m,n) = 1$, then there are no primitive roots mod $m n$  ],[
+
+Suppose that $a in ZZ_(gt 0)$ with $(a, m n) = 1$ \
+
+Then $(a,m) = 1 $ and $(a,n) = 1 $ since $(m,n) = 1$ \
+
+Also $phi.alt(m)$ and $phi.alt(n)$ are even. \
+
+$ therefore a^(1/2 phi.alt(m n)) = (a^(phi.alt(m)))^(1/2 phi.alt(n)) equiv 1 (mod m) $ \
+
+Also $  a^(1/2 phi.alt(m n)) = (a^(phi.alt(m)))^(1/2 phi.alt(n)) equiv 1 (mod n) $ \
+
+Since $(m,n) = 1 $, this implies that $ a^(1/2 phi.alt(m n)) equiv 1 ( mod m n)$ 
+
+So there are no primitive roots mod $m n$     
+
+])
+
+#corollary([],[There are no primitive roots mod $n $ if either \ (i) $n $ is divisible by two odd primes, or \ (ii) $n$ is of the form $2^m dot p^k $ where $p $ is an odd prime, and $m gt.eq 2$  ],[
+
+Hence the only possibilities for which a primitive root mod $n $ can exist are $n = 2,4, p^k, 2 p^k $ where $p $ is an odd prime. 
+
+])
+#lemma([],[If $p $ is an odd prime, then there exists a primitive root $r (mod p)$ such that $ r^(p-1) equiv.not 1 (mod p^2)  $ ],[
+
+Let $r $ be any primitive root mod $p $ (we have shown that such an $r $ exists) \
+
+If $r^(p-1) equiv.not 1 (p^2)$ then we are done \
+
+Otherwise, consider $r_1 := r + p $. Then $r_1 $ is a primitive root mod $p $, and $ r_1^(p-1) = (r+p)^(p-1) equiv r^(p-1) + (p-1) p r^(p-2) mod(p^2) equiv.not 1 (mod p^2) $ since $p divides.not r^(p-2)$  
+
+])
+
+#corollary([],[IF $p $ is an odd prime, then $p^2 $ has a primitive root. ],[
+
+Let $r$ be a primitive root mod $p$ \
+
+Then the order of $r  mod(p^2)$ is either $p-1 "or" phi.alt(p^2) = p(p-1)$ 
+
+(The order cannot be $p $  because $r^p equiv r (mod p)$ )\
+
+Then Lemma 0.13.6 implies that if $r$ has order $p-1 $ $mod p^2 $ , then $r + p $ is a primitive root $mod r^2$   
+
+])
+
+#lemma([],[Let $p $ be an odd prime and let $r $ be a primitive root $mod p $ such that $r^(p-1) equiv.not 1 (mod p^2)$ Then for each integer $k gt.eq 2 $ we have $ r^((p-1)p^(k-2)) equiv.not 1 (mod p^k) (dagger) $ ],[
+
+The proof is by induction on $k$ \
+
+By hypothesis, $(dagger)$ holds for $k = 2$ \
+
+Let $k gt.eq 2 $ be an integer for which $(dagger)$ holds. \
+
+Since $(r,p) = 1$ we have $(r, p^(k-1)) = 1$  
+
+So Euler's theorem implies that $ r^((p-1)p^(k-2)) = r^(phi.alt(p^k - 1)) equiv 1 (mod p^(k-1)) $ $therefore r^((p-1)p^(k-2)) = 1 + a p^(k-1)$ (and $p+a$ by our inductive hypothesis ) \
+
+$therefore (r^((p-1)p^(k-2)))^2 = (1 + a p^(k-1))^p arrow.double r^((p-1)p^(k-2)) equiv 1 + a p^k (mod p^(k+1)) arrow.double r^((p-1)p^(k-2)) equiv.not 1 (mod p^(k+1))$ since $p divides.not a$  
+
+Hence if $(dagger)$ holds for $k$, then it holds for $k_1$ \
+
+This completes the induction step and proves the lemma.
+
+])
+
+#theorem([],[If $p $ is an odd prime and $k gt.eq 1$, then there exists a primitive root $mod p^k $  ],[
+
+Lemmas 0.13.6 and 0.13.8 imply that there exists a primitive root $r (mod p)$ such that $ r^(p^(k-2)(p-1)) equiv.not 1 (mod p^k) (star) $ \
+
+Claim: $r $ is a primitive root $mod p^k$ \
+
+Let $n$ be the order of $r (mod p^k)$  
+
+Then $n divides phi.alt(p^k)$ i.e. $n divides p^(k-1) (p-1)$ \
+
+Now $r^n equiv 1 (mod p^k)$ and so $r^n equiv 1 (mod p)$ \
+
+The order of $r (mod p)$ is $p-1$  and so $(p-1) divides n$  \
+
+$therefore$ we have $n = p^m (p-1)$ , $0 lt.eq m lt.eq k-1$ \
+
+If $n eq.not p^(k-1) (p-1)$ then $n divides p^(k-2) (p-1)$ \
+
+This implies that $r^p^(k-2) (p-1) equiv 1 (mod p^k)$ which contradicts $(dagger)$ \
+
+Hence $n = p^(k-1) (p-1)$ i.e. $r $ is a primitive root $mod p^k$  
+
+])
+
+#corollary([],[If $p$ is an odd prime and $k gt.eq 1 $ then there exists a primitive root $mod 2 p^k$  ],[
+
+Let $r $ be a primitive root $mod p^k$ \
+
+We may assume that $r $ is odd (or else $r + p^k $ is odd, and is a primitive root $(mod p^k)$) \
+
+Let $n $ be the order of $r mod 2 p^k $ \
+
+Then $n divides phi.alt(2 p^k)$  i.e. $n divides phi.alt(2) phi.alt(p^k)$ i.e. $n divides phi.alt(p^k)$ \
+
+However, $r^n equiv 1 (mod 2 p^k ) arrow.double r^n equiv 1 (mod p^k) arrow.double phi.alt(p^k) divides n$ , since $phi.alt(p^k)$ is the order of $r mod p^k$ 
+
+Hence $n = phi.alt(p^k) = phi.alt(2 p^k)$ i.e. $r $  is a primitive root $mod 2 p^k$  \
+
+Hence there exists a primitive root $mod n $ if and only $n = 2, 4, p^k, "or" 2 p^k$ where $p $ is an odd prime. \
+
+
+
+])
+
+#defn([indices],[
+
+Suppose that $n $ is an integer for which there exists a primitive root $r mod n$ \
+
+Then if $(a,n) = 1 $ , then the smallest positive integer $k $ such that $a equiv r^k (mod n)$ is called the index of $a $ relative to $r$ and is written $"indr"_r (a)$ or $"ind"(a)$ if $r $ is understood \ 
+
+So $1 lt.eq "indr"(r) (a) lt.eq phi.alt(n)$ and $r^("ind"_r (n)) equiv a (mod n)$  
+
+])
+
+#example([],[
+
+2 is a primitive root mod 5 \
+
+$2^1 equiv 2, 2^2 equiv 4, 2^3 equiv 3, 2^4 equiv 1 (mod 5)$ \
+
+$therefore "Ind"_2(1) = 4, "Ind"_2(2) = 1, "Ind"_2(3) = 3,"Ind"_2(4) = 2$ 
+
+])
+
+== Feb 20
+
+We Remind ourselves of the definition of indices \
+
+#defn([INdices],[
+
+Suppose that $n $ is a positive integer for which there exists a primitive root $r mod n $ \
+
+Definition: If $(a,n) = 1 $ then the smallest positive integer $k $ such that $a equiv r^k (mod n)$ is called the index of $a $ relative to $r $ and is written $"ind"_r (a)$ \
+
+So $ 1 lt.eq "ind"_r (a) lt.eq phi.alt(n) $  and $ r^("ind"_r (a)) equiv a (mod n) $  
+
+])
+
+#thm([],[
+
+Suppose that there exists a primitive root $r (mod n) $ then \ (i) $"ind"(a b) equiv "ind"(a) + "ind"(b) (mod phi.alt(n))$ \
+
+(ii) $"ind"(a^k) equiv k dot "ind"(a) (mod phi.alt(n))$ \
+
+(iii) $"ind"(1) equiv 0 (mod phi.alt(n))$  and $"ind"(r) equiv 1 (mod phi.alt(n))$ 
+
+],[
+
+
+(i) $r^("ind"(a)) equiv a (mod n)$ and   $r^("ind"(b)) equiv b (mod n)$ therefore $r^("ind"(a) + "ind"(b)) equiv a b equiv r^("ind"(a b)) (mod n)$ \
+
+Now since the order of $r (mod n)$ is $phi.alt(n)$ it follows that $"ind"(a) + "ind"(b) equiv "ind"(a b) (mod phi.alt(n))$ \
+
+(ii) $r^("ind"(a^k)) equiv a^k (mod n)$ then also $(r^("ind"(a)))^k equiv a^k (mod n)$ \ 
+
+Hence it follows that $"ind"(a^k) =k dot "ind"(a) (mod phi.alt(n))$ \
+
+(iii) follows by definition
+])
+
+#note([
+
+An expalation for (ii) above \
+
+If $(alpha, n) = 1$ and $alpha^m equiv 1 (mod n)$ then $m $ divides the order of $k$, of $alpha (mod n)$ i.e. $m equiv 0 (mod k)$ \
+
+So if $alpha^(m_1) equiv alpha^(m_2) (mod n) arrow.double alpha^(m_1 - m_2) equiv 1 (mod n)$ and so $m_1 - m_2 equiv 0 (mod k)$ i.e. $m_1 equiv m_2 (mod k)$   
+
+])
+
+#example([],[
+
+Suppose that there exists a primitive root $r $ mod $n $ and that $(a,n) = 1 $ \
+
+Consider the congruence $x^k equiv a (mod n) (dagger)$ \
+
+This may be rewritten $r^(k dot "ind"(x)) equiv r^("ind"(a)) (mod n)$ \
+
+and so is equivalent to the congruence $k dot "ind"(x) equiv "ind"(a) (mod phi.alt(n)) (star)$ \
+
+Let $d = (k, phi.alt(n))$ \
+
+If $d divides.not "ind"(a)$ then $star $ has no solutions \
+
+If $d divides "ind"(a)$ then $star$ has $d$ solutions   
+
+])
+
+#example([],[Suppose that $k = 2$, and $n = p$ is an odd prime. Then $(dagger)$ becomes $x^2 equiv a (mod p)$ $(dagger dagger)$  \
+
+Then this is equivalent to $2 dot "ind"(x) equiv "ind"(a) (mod p-1) (star star)$ \
+
+Since $(2, p-1) = 2$ then $(star star)$ has a solution if and only $2 divides ("ind"(a))$ in which case there are two solutions.      ])
+
+#example([],[Consider the congruance $4 x^9 equiv 7 (mod 13) (dagger)$ 
+
+Recakk tgat 2 is a primitive root mod 13
+
+$a = 1,2,3,4,5,6,7,8,9,10,11,12$ has corresponding idices $"ind"_2 (a) = 12,1,4,2,9,5,11,3,8,10,7,6$  
+
+Then $(dagger)$ has a solution if and only if  $ "ind"_2 (4) + 9 "ind"_2 (x) equiv "ind"_2 (7) (mod 12) arrow.double 9 "ind"_2 (x) equiv 9 (mod 12) arrow.double 3 dot "ind"_2 (x) equiv 3 (mod 4) arrow.double "ind"_2 (x) equiv 1 (mod 4) $ \
+
+Therefore $"ind"_2 (x) = 1,5, "or" 9$ \
+
+Therefore $x equiv 2,5,"or" 6 (mod 13)$ 
+
+])
+
+#theorem([],[Let $n$ be an integer such that there exists a primitive root $r (mod n)$ \
+
+Suppose that $(a,n = 1)$ \
+
+Then $x^k equiv a (mod n)$ has a solution if and only if $ a^(phi.alt(n)/d) equiv 1 (mod n) (star) $ \
+
+where $d = (phi.alt(n),k)$ \
+
+If this has a solution, then there are exactly $d$ solutions $(mod n)$        ],[
+
+Taking indices, we see that $star$ is equivalent to $phi.alt(n)/d "ind"_r (a) equiv 0 (mod phi.alt(n))$ \
+
+This holds if and only if $d divides "ind"_r (a)$ i.e. if and only if $x^k equiv a (mod n)$ is solvable (from the discussion above) 
+
+])
+
+#example([],[
+
+Consider the congruence $x^3 equiv 4 (mod 13)$ 
+
+let $d := (3, phi.alt(13) ) = 3$ \
+
+Therefore $phi.alt(13)/d = 4$ \
+
+We have $4^4 = 16 dot 16 equiv 3 dot 3 equiv 9 equiv.not 1 (mod 13)$ \
+
+Therefore the original congruence is not solvable
+
+
+])
+
+#example([],[
+
+Consider another congruence $x^3 equiv 5 (mod 13) (dagger)$ \
+
+WE have $5^4 equiv 625 equiv 1 (mod 13)$ and so $(dagger)$ has a solution  \
+
+Note that $(dagger)$ is equivalent to the congruence $3 dot "ind"_2 (x) equiv "ind"_2 (5) (mod 12)$ i.e. $3 "ind"_2 (x) equiv 9 (mod 12) arrow.double "ind"_2 (x) equiv 3 (mod 4)$ \
+
+This last congruence has 3 distinct solutions (mod 12) i.e. $"ind"_2(x) equiv 3,7,11 (mod 12)$ \
+
+And the corresponding integers are $8,11,7$ respectively \
+
+So the solutions of $(dagger)$ are $x equiv 7,8,11 (mod 12)$  
+
+])
+
+New Topic: quadratic reciprocity law
+
+#remark([Some motivation: suppose that $p $ is an odd prime and consider the congruence $alpha x^2 + beta x + gamma equiv 0 (mod p) (dagger)$ where $(alpha, p) = 1$ \
+
+Since $p $ is odd we have $(4 alpha, p) = 1$  and so $(dagger)$ holds and so $(dagger)$ yields $4 alpha (alpha x^2 + beta x + gamma equiv 0 (mod p)) arrow.double (2 alpha x + beta)^2 - (beta^2 - 4 alpha gamma) equiv 0 (mod p)$ \
+
+Say $y = 2 alpha x + beta, delta = beta^2 - 4 alpha gamma$ then we obtain $y^2 equiv delta (mod p) (dagger dagger)$  \
+
+So 
+
+(i) If $x equiv x_0 (mod p)$ is a solution of $(dagger)$ then $y_0 equiv 2 alpha x_0 + beta (mod p)$ is a solution of $(dagger dagger)$  \
+
+(ii) If $y equiv y_0 (mod p)$ is a solution of $(dagger dagger) $ then we can solve $2 alpha x equiv y_0 - beta (mod p)$ to obtain a solution of $(dagger)$
+
+So we consider congruence of the form $x^2 equiv a (mod p) (star)$ \
+
+If $(star)$ has a solution $x_0$, then $p - x_0 $ is also a solution. These two solutions are distinct $(mod p)$    \
+
+
+
+
+ ]) 
+#example([],[Recall Langrange's theorem: If $p $ is a prime and $f(x) = a_n x^n + dots + a_0$ where $(a_n, p) = 1$ is a polynomial of degree $n$ with integer coeffeicients thatn $f(x) equiv 0 (mod p)$  has at most $n$ distinct solutions $(mod p)$
+
+
+Consider the congruence $5 x^2 - 6 x + 2 equiv 0 (mod 13)$ then $alpha = 5, beta = -6, gamma = 2$ \
+
+Set $delta = beta^2 - 4 alpha gamma = 36 - 40 = -4 equiv 9 (mod 13)$ \
+
+So we consider the congruence $y^2 equiv 9 (mod 13)$ \
+
+This has solutions $y equiv 3, 10 (mod 13)$ Next, we solve the linear congruences $10 x - 6 equiv 3 (mod 13)$ and $10 x - 6 equiv 10 (mod 13)$  i.e $10 x equiv 9 (mod 13)$  and $10 x equiv 16 equiv 3 (mod 13)$ \
+
+Check that $x equiv 10, 12 (mod 13)$ satisfy these equaitons. \
+
+Aim: provide a test for the existence of solutions of the congruence $x^2 equiv a (mod p)$ where $(a,p) = 1$ i.e. identify those integers that are perfect squares $(mod p)$  
+
+]) \
+
+#defn([],[
+
+Let $p$ be a prime and let $a $ be an integer with $(a,p) = 1$  
+
+If $(star)$ from 0.14.10 has a solution, then $a $ is said to be a quadratic residue $mod p$ \
+
+If $(star)$ from 0.14.10 does not have a solution, then $a $ is said to be a quadratic non-residue $mod p$  
+
+])

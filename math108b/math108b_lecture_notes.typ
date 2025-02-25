@@ -765,3 +765,286 @@ Given a closed convex subset $C $, for every $x in V$: $ z = P_C (x) iff angle.l
 In other words, the angle between $y-z $ and $x - z $  is greater than $90 $ degrees 
 
 ],[])
+
+== Feb 11
+
+#note([
+
+Last time: 
+
+$P_U (v) = argmin_(u in U) ||u-v||^2 = argmin_(u in U) ||u -v|| = argmin_(u in U) 1/2 ||u-v||^2$ \
+
+$"dist"(v, U) = min_(u in U) ||u-v||$ \
+
+Generalize: $P_C (x) = argmin(y in C) ||x-y||^2$ 
+
+#theorem([characterization theorem for orthogonal projection],[$z = P_C (x) iff angle.l y-z, x-z angle.r lt.eq 0 forall y in C$ \
+
+Recall this means the angle if $gt.eq 90^degree$ or $pi/2$      ],[
+
+Assume that $angle.l y -z , x - z angle.r lt.eq 0$ \
+
+Note that $ ||y-x||^2 = ||y-z+z-x||^2 = ||y-z||^2 + ||z-x||^2 + 2 angle.l y-z, z-x angle.r = ||y-z||^2 + ||z-x||^2 - 2 angle.l y-z, x-z angle.r $ \
+
+We conclude with $||x-z||^2 lt.eq ||x-y||^2 forall y in C$ i.e. $||x-z|| lt.eq ||x-y||$  
+
+Assume $z = P_C (x)$, that is $||x-z||^2 lt.eq ||x-y||^2 forall y in C$ \
+
+create a $y_t = t y + (1-t) z$ which represents a point in $C$. Because we need a convex combination we require that $0 lt.eq t lt.eq 1$ 
+
+Note that $||x-z||^2 lt.eq ||x-y_t||^2$ for any $y$ and any $0 lt.eq t lt.eq 1$ \
+
+Definte $F(t) = ||x- y_t||^2$. $F$ is continuous/differentiable in terms of $t$. If $t = 0, y_t = 0 dot y + (1-0)z = z$. By assumption $F(t)$ achieve its minimum at $t = 0 arrow.double.l.r (d F(t))/d t |_(t=0) = 0$ \
+
+Then, $F(t) = ||x - (y + (1-y)z)||^2 = ||x-z-t(y-z)||^2 = ||x-z||^2 + t^2||y-z||^2 - 2 t angle.l x-z, y-z angle.r$ \
+
+$(D F(t)/dt)_(t = 0)=2||y-z||^2 t - 2 angle.l s-z, y-z angle.r$ 
+
+$((d F(t))/F(t))_(t = 0) gt.eq 0 arrow.double.l.r -2 angle.l x-z, y-z angle.r gt.eq 0 arrow.double.l.r angle.l x-z, y-z angle.r lt.eq 0$ \
+
+We need to show the above line ($F(t)$ is increasing at $t=0$ for any $y$) \
+
+]) 
+
+])
+
+#defn([Convex set],[
+
+any convex combination of two points is closed in the set \
+
+])
+
+#remark([Properties of $P_C $
+
+$||P_C (x) - P_C (y)|| lt.eq ||x-y||$ (consequentially nonexpansive) \
+
+$angle.l P_C (x) - P_C (y), x-y angle.r gt.eq ||P_C (x) - P_C (y)||^2$ (firmly nonexpansive) \
+
+$P_C: V arrow V$ is a contraction mapping \
+
+We generalize projections onto vector spaces to projections onto convex sets
+
+ ]) 
+
+#notation([$v + U$: \
+
+for a $U subset.eq V$   we denote $v + U = {v+u: u in U}$ which is a subset of $V$ 
+])
+
+#remark([If $v in.not U$ then $0 in.not v + U arrow.double v + U$ is not a subspace  ])
+
+#remark([
+Let $U = {y=2x}$ and $v = (2,0)$ in $RR^2$ \
+
+We say that $v + U$ is parallel to $U$ and also say that $v + U$ is an affine subset \
+
+We can also observe that if we let $w = v + u $ for some $u in U$ that $v+U = w+U$   
+
+])
+
+#prop([These are equivalent \ (a) $v + U = w + U $ \ (b) $w - v in U $ \ (c) $(v + U) sect (w + U) eq.not emptyset$ (LADR 3.101)  ],[
+in book
+
+])
+
+#defn([quotient space],[
+
+The quotient space denoted $V \\ U = { v + U: v in V}$. This is a collection of subsets ${v_1 + U, v_2 + U, dots}$ \
+
+#remark([$V \\ U subset.eq.not V$ is not a valid statement since $V \\ U$ has elements that are subsets of vectors, while $V$ has elements that are vectors   ])
+
+])
+
+#remark([
+To add $v_2 + U$ to the set ${v_1 + U}$ we first need to check if $v_2 - v_1 in.not U$ (otherwise $v_1 + U = v_2 + U$ )  
+
+])
+
+== Feb 13
+
+#remark([Last Time: For $U $ a subspace of $V $  call the set $V \\ U = {v + U: v in V}$ the set of all affine subsets parallel to $U$  ])
+
+#example([],[
+
+Let $U = {vec(x,y,0) : x,y in RR}$ be the x-y plane. Then the quotient space (see the picture in lecture notes) of planes parallel to $U$  
+
+])
+
+#theorem([$V \\ U$ is a vector space ],[
+
+Define addition and scalar-multiplication as follows: \
+
+Let $v_1 + U, v_2 + U in V \\U$ where $v_1, v_2 in V$ and let $lambda in FF$   \
+
+Addition: $v_1 + U + (v_2 + U) = (v_1 + v_2 ) + U$ (the addition is not a binary operation on vectors) \
+Scalar Multiplication: $lambda (v + U) = lambda v + U$ \
+
+],[
+
+exercise
+
+])
+
+#remark([
+
+a vector in $V \\ U$ is affine subset \
+
+the zero vector has multiple representations: $0 in V \\ U = U = 0_(in V) + U = u_(in U) + U$ 
+
+])
+
+#definition([quotient map],[
+
+Call the map $pi: V arrow V \\ U$ to the quotient map defined by $v arrow v + U$   
+
+])
+
+#remark([The quotient map is linear])
+
+#example([quotient map],[
+
+An example of a quotient map is $pi: ZZ arrow ZZ \\ 7$ where $U = {7 k: k in ZZ}$ \
+
+$0 &arrow 0 + U \ 1 &arrow 1 + U \ dots.v \ 7 &arrow 7 + U = 0 + U \ 8 &arrow 8 + U = 1 + U \ dots.v $ 
+
+#remark([Here $pi $ is not injective, though it is surjective])
+
+])
+
+#defn([
+
+
+],[
+
+
+Given $T in L(V, W)$ define $T^tilde : V \\ "Null"(T) arrow W$ by $v + "Null"(T) arrow w$   such that $T^tilde (v + "Null"(T)) = T(v)$  
+])
+
+#example([application of $T^tilde$ ], [
+
+Solve inhomogenous system such as $T(v) = b$ i.e. $A v = b$ \
+
+Find a particular $v_0$ such that $T(v_0) = b$ i.e. $A v_0 = b$ \
+
+(?? TODO)
+
+
+])
+
+#remark([
+
+In general $T$ is a map if each input corresponds to one output(no multiple outputs) \
+
+We can call $T$ well defined or not well defined respectively. \
+
+Is it possible that $T^tilde (v + "Null"(T)) arrow T(v) = T^tilde (v + u_0 + "Null" (T))$ if $T(u_0) = 0 $ ? \
+
+#prop([$T^tilde$ is well defined],[
+
+Want to show that if $v_1 + "Null"(T)=  v_2 + "Null" (T)$ then $T^tilde (v_1 + "Null"(T)) = T^tilde (v_2 + "Null"(T))$  \ 
+
+(continued in lecture notes (TODO))
+
+])
+
+
+])
+
+#defn([linear functional],[
+
+  A linear functional is a map $phi.alt: V arrow FF$ where $FF$ is $RR$ or $CC$ \
+
+  #note([In this class we will work with $RR$, i.e. $phi.alt(v) in RR$ and $phi.alt in L(V, RR)$   ])
+
+])
+
+#defn([dual space of $V$],[
+
+The collections of linear functionals on $RR$ \
+
+We denote the dual space of $V$ by $V' - L(V, RR)$ 
+
+] )
+
+#theorem([dimension of $V'$ ],[
+
+$dim(V') = dim(L(V, RR)) = dim(V) dot dim(RR) = dim(V)$  
+
+
+],[
+Also in the book (LADR 3.111)
+
+])
+
+#cor([],[
+
+$V$ is isomorphic to $V'$ i.e. each vector in $V$ corresponds to a linear functional in $V'$    
+
+],[By 1.9.16 and LADR 3.70])
+
+#remark([
+
+1.9.17 motivates the riesz-representation calculation: \
+
+For any functional $phi.alt in V'$  find its representation in $V$ by $V_(phi.alt) = phi.alt(e_1) e_1 + dots + phi.alt(e_n) e_n$ where ${e_1, dots, e_n}$ is orthonormal basis in $V$  
+
+])
+
+== Feb 18
+
+#note([Midterm 2 \
+
+True False + 3 free response
+
+Covers 3E (product spaces and quotient spaces) \
+
+Covers 6C (orthogonal complement, orthogonal projection) \
+
+Old Material that may come up: inner pdocuts, orthonormal bases, riesz representation \
+
+Recall the orthogonal projection operator $P_U$ which maps $v arrow P_U (v) + w$ where $w perp U$  \
+
+Characterization of $P_U (v)$ (1.8.2): $angle.l v - P_U (v),u - P_U (v) angle.r lt.eq 0$ \
+
+Applications of $P_U$ such as minimization problem i.e. $P_U (v) = argmin_(u in U) ||v-u||^2$ \
+
+Review various properties (eg relating to dimension) and interesting maps such as $T: V_1 times dots times v_n arrow V_1 plus.circle dots plus.circle V_n$ and $pi: V arrow V \\ U$ (are these maps injective or surjective?) \ 
+
+Dual spaces: $V' = L(V, RR)$ as a special case of $L(V, W)$ \
+
+Dual space connection to riesz representation theorem \
+
+prop 1.8.8 \
+
+
+])
+
+Interesting topica (Not in Exams) \
+
+#remark([
+
+Recall orthogonal projections: for subspace $U, v in V$ and then we can find a $w = (v - P_U (v)) perp U$ \
+
+Now consider if $U = span{a_1, a_2, dots, a_k} subset.eq RR^n$ and matrix $A = mat(dots.v, dots.v, dots, dots.v; a_1, a_2, dots, a_k; dots.v, dots.v, dots, dots.v)$ and $P_U (v) in U$  \
+
+Then $P_U (v) = x_1 a_1 + x_2 a_2 + dots + x_k a_k = A x $ where $x_1, dots, x_k $ are "weights". \
+
+fix a constant vector $b in RR^n $ then $v - P_U (v) = b - A x$ and note that $U $ is the column space of $A$ \
+
+Notice that $b - A x in "Null"(A)$ is equivalent to saying $b - A x$ is orthogonal to the column space \
+
+In other words $forall a_i, a_i dot (b - A x  = 0)$ i.e. $A^T (b - A x ) = 0$  \
+
+We would like to study how $ A^T (b - A x) = 0 \ A^T A x = A^T b \ x = (A^T A)^(-1) A^T b $ as long as $A^T A $ is invertible. \
+
+Reconsidering $P_U : V arrow A$ where $b in V arrow (A^T A)^(-1) A^T b$ then $(A^T A)^(-1) A^T$ is the (orthogonal) projection matrix \  
+
+An application of this is solving $A x = b $ when $A$ is not invertible. We can try $x = (A^T A)^(-1) A^T b$ \
+
+And $x = argmin ||A y - b||^2_2$ is probably a minimizer of some optimization problem \
+
+Think linear regression or least squared problem from machine learning \
+
+
+
+]) 
