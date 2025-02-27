@@ -1045,6 +1045,138 @@ And $x = argmin ||A y - b||^2_2$ is probably a minimizer of some optimization pr
 
 Think linear regression or least squared problem from machine learning \
 
+]) 
 
+
+== Feb 25 Post Midterm 2
+
+#note([
+
+Midterm 2
+
+Mean: 14/20 \
+Median: 13.5/20 \
+Std. Dev: 3.5/20
+
+Plan for the remaining quarter: \
+
+Duality: (less formal and less emphasized (study only lecture notes)), pictures and examples in $L(V, W)$ 
+
+Eigenvalue/Eigenspace \
+
+3.F skip
+
+])
+
+#note([
+
+Recall $phi.alt in L(V, RR) $ and the corresponding $u_phi.alt() in V$ where $u_(phi.alt) in "span"{e_1, dots, e_n} subset.eq V$ \
+
+\\fill in from lecture notes
+
+])
+
+#example([],[
+
+$V = RR^n = span{e_1, dots, e_n}$ is an orthonormal basis \
+
+Then $v = x_1 e_1 + x_2 e_2 + dots + x_n e_n$ \
+
+Denote the coordinate vectors $[]: v arrow [v] = vec(x_1, dots.v, x_n)$ 
+
+What shall we expect for $psi_j$ dual basis? \
+
+\\fill in from lecture notes
+
+$phi.alt = y_1 psi_1 + y_2 psi_(2) + dots + y_n psi_n$ \
+
+$phi.alt(v) = y_1 psi_1(v) + dots + y_n psi_n (v)$ \
+
+Define $psi_j (vec(x_1, dots.v, x_j, dots.v, x_n)) = x_j$ \
+
+$psi_i$ and $psi_j$ are linearly independent / provide "orthogonal info" \
+
+so $psi_i, psi_j$ fetch "orthogonal" info from the same $vec(x_1, dots.v, x_i, dots.v, x_j, dots.v, x_n)$  
+
+])
+
+#defn([dual basis],[
+
+
+The dual basis for some ${e_1, e_2, dots, e_n}$ where $e_1, dots, e_n$ are a basis for V are functionals ${v_j} in V' = L(V, RR)$ such that $psi_j (e_j) = 1$ and $psi_j (e_i) = 0 "for" i eq.not j$     
 
 ]) 
+
+#remark([
+
+$e_1, e_2, dots, e_n$ are a basis of $V$ \
+
+${psi_1, psi_2, dots, psi_n}$ are functionals in $V'$ (this is called the dual basis) \
+
+We can think of $psi_j (v)$ as $"proj"_(e_j) v$ \
+
+here, we just define a sequence of functionals in $V'$ but we have not proved they are indeed basis \
+
+The choice of dual basis depends on the choice of basis $in V$ 
+
+])
+
+#theorem([definition of dual basis satisifes definition of basis],[
+
+For $psi_j (e_j) = 1$ and $psi_j (e_i) = 0$ as defined above, then ${psi_k}$ is a basis for $V'$    
+
+],[
+
+Assume $a_1 psi_1 + a_2 psi_2 + dots + a_n psi_n = 0$ (In this context: $0$ denotes the zero functional $0(v) = 0$  )
+
+We want to show that $a_1 = a_2 = dots = a_n = 0 in FF$ \
+
+Recall that if $dim(V') = dim(V) = n$ then any list of $n$ l.i. vectors is a basis \ 
+
+Consider $0 = 0(v) = [a_1 psi_1 + dots + a_n psi_n](v) = a_1 psi_1(v) + dots + a_n psi_n (v)$ where \
+
+$v = b_1 e_1 + b_2 e_2 + dots + b_n e_n$ \
+
+Then note that if we want to look at images of a linear functional, it is sufficient to look at images from basis of domain \
+
+$0 = 0 (e_i) = a_1 psi_1 (e_i) + dots + a_n psi_n (e_i) = a_i dot 1 = a_i$ 
+
+])
+
+#defn([dual map $T'$ ],[
+
+Given a map $T in L(V, W)$  the dual map $T' in L(W', V')$ where $W'$ is the space of linear functionals from $W arrow RR$ and $V'$ is the space of linear functionals from $V arrow RR$  \
+
+Consider $T: V arrow W$ then $T' $ is mapping $T': phi.alt in W' arrow $a functional $in V'$   defined by $ T'(phi.alt) = phi.alt circle T: V arrow RR $ where $[T'(phi.alt)](v) = phi.alt(T(v))$   
+
+])
+
+#defn([Properties of dual maps],[
+
+suppose $T in L(V, W)$ then \
+
+$(S + T)' = S' + T'$ for all $S in L(V, W)$ \
+
+$(lambda T)'  = lambda T'$ for all $lambda in FF$ \
+
+$(S T)' = T' S'$ for all $S in L(V, W)$ \
+
+as in LADR 3.120
+
+])
+
+#defn([matrix representation of $T$ ],[
+
+$M: T in L(V, W) arrow RR^(m times n)$ \
+
+Transpose operation: $(A + B)^T = A^T + B^T$ and $(A B)^T = B^T A^T$ \
+
+#remark([
+
+the mapping $L(V, W) arrow L(W', V')$ is equivalent to a transpose over some suitable choices of bases for $V, W, V', W'$ 
+
+])
+
+])
+
+a motivation for studying duality is fourier transform

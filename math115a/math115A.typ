@@ -5,7 +5,7 @@
 #let title = "math115A lecture notes"
 #let author = "Alice Bob"
 
-#show: notes.with(title, author)
+#show: notes.with(title, author, continuous: true)
 #env_headers.update("classic")
 #env_colors.update("classic")
 
@@ -1330,5 +1330,182 @@ Let $p$ be a prime and let $a $ be an integer with $(a,p) = 1$
 If $(star)$ from 0.14.10 has a solution, then $a $ is said to be a quadratic residue $mod p$ \
 
 If $(star)$ from 0.14.10 does not have a solution, then $a $ is said to be a quadratic non-residue $mod p$  
+
+])
+
+== Feb 25
+
+Last time
+
+#remark([
+
+Let $p $ be an odd prime, and let $a $ be an integer with $(a,p)=1$  \
+
+If the congruence $x^2 equiv a (mod p)$ has a solution, than $a $ is said to be a quadratic residue $mod p$  \
+
+If the above congruence has no solution, then $a $ is said to be a quadratic non-residue $mod p$ \
+
+Example: \
+
+Consider the prime $p = 13$. The quadratic residues $mod 13 $ are $1,4,9,3,10,12$ and the quadratic non-residues $mod 13$ are $2,5,6,7,8,11$ (check this!)   
+
+])
+
+#remark([Recall Fermat's little theorem (which is a special case of Euler's theorem) \ 
+
+If $p $ is an odd prime, and $a $ is an integer such that $(a, p )= 1$ then $a^(p-1) equiv 1 (mod p)$\
+
+])
+
+#theorem([Euler's criterion ],[
+
+Suppose that $p $ is an odd prime, and let $a in ZZ$ satisfy $(a,p) = 1$ \
+
+Then $a $ is a quadratic residue $mod p$  $ iff a^((p-1)\/2) equiv 1 (mod p) $  
+
+],[
+
+Suppose that $a $ is a quadratic residue $mod p$ such that  $x^2 equiv a (mod p)$  \
+
+Then $(a,p) = 1$ and raising each side by $(p-1)/2$ gives us $ a^((p-1)\/2) equiv (x^2)^((p-1)\/2) equiv x^(p-1) equiv 1 (mod p) $ where the last equiv holds by euler's theorem \
+
+Conversly, suppose $a^((p-1)\/2) equiv 1 (mod p)$ Let $r $ be a primitive root $mod p$ \
+
+Suppose that $a equiv r^k (mod p)$ sich that $1 lt.eq k lt.eq p$ \
+
+Then $r^(k (p-1)\/2) equiv a^((p-1)\/2) equiv 1 (mod p)$ \
+
+Therefore the order of $r mod p$ divides $k (p-1) \/ 2$ i.e. $p-1$ divides $k(p-1) / 2$  Hence $k $ is even, with $k = 2j$ then $(r^j)^2 = r^(2j) = r^k equiv a (mod p)$  which implies that $a $ is a quadratic residue $mod p$ 
+
+])
+
+#remark([
+
+Suppose that $a,p$ are as in 0.15.3 above \
+
+Then $ (a^((p-1)\/2) - 1) (a^((p-1)\/2) + 1) = a^(p-1) - 1 equiv 0 (mod p) $ where the last equality holds by Eyler's theorem
+
+Hence either $a^(p-1\/2) equiv 1 (mod p)$ or $a^((p-1)\/2) equiv -1 (mod p)$ but not both \
+
+So if $a $ is a quadratic non-residue $mod p$ then we must have  $a^((p-1)\/2) equiv -1 (mod p)$
+
+])
+
+#corollary([],[Let $a,p$ be as above \ 
+
+Then $a^((p-1)\/2) equiv {1 "if" a "is a quadratic residue" mod p; - 1 "if" a "is a quadratic non-residue" mod p}$ \
+],[])
+
+#example([],[Let $p = 13$ then $2^((13-1)\/2) = 64 equiv 12 equiv -1 (mod 13)$ therefore $2 "is a quadratic non-residue" mod 13$ \
+
+Similarly $3^((13-1)\/2) = 3^6 = (27)^2 equiv 1^2 equiv 1 (mod 13)$ therefore 3 is a quadratic residue $mod 13$  
+  ])
+
+#theorem([Euler's criterion alternative proof],[
+
+Suppose that $a $ is a quadratic non-reside $mod p$, and $c in {1,2,dots,p-1} := S$  \
+
+Then there exists a solution $c' in S$ of the congruence $c x equiv a (mod p)$ \
+
+Since $a$ is a quadratic non-residue $mod p $ we have $c eq.not c'$ \
+
+Therefore the integers in $S$ can be divided into $(p-1)/2$ pairs ${c, c'}$ with $c c' equiv a (mod p)$ \
+
+Therefore we have the congruences (there are $(p-1) \/ 2$ ) of these: \ $ c_1 c_1' equiv a (mod p) \ c_2 c_2' equiv a (mod p) \ dots.v \ c_((p-1)/2) c'_((p-1)/2) equiv a (mod p)   $ \
+
+Multiplying these congruences together we have $ a^((p-1)/2) equiv (p-1)! equiv -1 (mod p) $ where the last equivalence holds by wilson's theorem \
+
+Now suppose that $a $ is a quadratic residue $mod p$ \
+
+Then the congruence $x^2 equiv a (mod p) $ has two solutions: $x = x_1, x = p - x_1$ for $x_1 in S$ \
+
+Remove $x_1, "and" p-x_1$ from $S$, then the remaining $p-3$ integers can be grouped into pairs $c, c'$ such that $ c c' equiv a (mod p)$ which gives $(p-3)/2$ congruences     
+
+We also have the congruence $x_1 (p- x_1) = x_1 p - x_1^2 equiv - x^2_1 equiv -a (mod p)$ \ Taking the product of al of these congruences gives: $ -a^((p-1)\/2) equiv (p-1)! equiv -1 (mod p) $ i.e. $a^((p-1)/2) equiv 1 (mod p)$  
+
+],[])
+
+#defn([Legendre symbol],[
+
+Let $p $ be an odd prime, with $(a,p)=1$ \
+
+The Legendre symbol $(a/p)$ is defined by \ 
+
+$ (a/p) = cases(1 "if" a "is a quadratic residue " mod p, -1 "if a is a quadratic non-residue") $ 
+
+if $p divides a$ we can set $(a/p) = 0$  \
+
+For example $(3/13) = 1, (6/13) = -1$ 
+
+])
+
+#theorem([properties of the Legendre symbol],[
+
+Let $p $ be an odd prime and let $a,b in ZZ$ with $(a,p) = (b,p) = 1$  \
+
+(i) If $a equiv b (mod p)$ then $(a/p) = (b/p)$
+
+(ii) $(a^2/p) = 1$ \
+
+(iii) $(a/p) equiv a^(p-1 \/2 ) (mod p)$ \
+
+(iv) $((a b)/p) = (a/p)(b/p)$ \
+
+(v) $(1/p) = 1$ and $(-1/p) = (-1)^(p-1 \/ 2)$  
+
+
+],[
+
+i and ii are clear \
+
+(iii): follows from the colollary to Euler's criterion 0.15.5 \
+
+(iv): use (iii) above  i.e. $((a b)/p) equiv (a b)^(p-1 \/ 2) equiv a^(p-1 \/ 2) (b^(p-1 \/ 2)) equiv (a/p) (b/p) (mod p)$ \
+
+(v) follows from euler's criterion
+
+
+])
+
+#remark([
+
+Observe that $(p-1)/2$ is even if $p = 4k + 1$ and odd if $p = 4 k + 3$  \
+
+So $ -(1/p) = (-1)^(p-1 \/ 2) = cases(1 "if" p equiv 1 (mod 4), -1 "if" p equiv -1 (mod 4)) $ 
+
+
+])
+
+#example([],[
+
+Determine whether the congruence $x^2 equiv -46 (mod 17)$ is solvable. \
+
+We can evaluate $ ((-46)/17) = (-1/17)(46/17) = (46/17) = (12/17) = ((3 dot 2^2)/17) = (3/17) equiv 3^((17-1)\/2) equiv 3^8 equiv (81)^2 equiv (-4)^2 equiv -1 (mod 17) $ \
+
+So the congruence has no solution (i think by 0.15.8)
+
+
+]) 
+
+#theorem([Dirchlet's theorem on primes in an arithmetic progression],[
+
+Suppose that $(a,m) = 1$ where $a,m in ZZ_(> 0)$, then the arithmetic progression $a, a+m, a + 2m, dots$ contains infinitely many primes   
+
+
+],[outside scope of this course])
+
+#theorem([infinitely many primes of the form $4 k + 1$ ],[There are inifintely many primes of the form $4^k _ 1$ ],[
+
+Suppose there are only finitely many such primes $p_1, dots, p_n$ \
+
+Consider the integer $N = (2 p_1 dots p_n)^2 + 1$  \
+
+Since $N$ is odd, there exists some off prime $p$ where $p divides N$ \
+
+i.e. $(2 p_1 dots p_n)^2 equiv -1 (mod p) (dagger)$ \
+
+So $(-1/p) = 1$ and therefore $p = 4 k + 1$ for some $k$ \
+
+Hence $ p = p_i$ say and now $(dagger)$ gives $0 equiv -1 (mod p_i)$   
 
 ])
