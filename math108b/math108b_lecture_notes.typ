@@ -245,6 +245,7 @@ For example it is true that $x > y > 1$ means that $||(x+1, y)||_2 gt.eq ||(x, y
 
  Proof for this case:
 
+
  Let $c_1 = 1/2, c_2 = 2$. We would like to show that \
 
  $(|x| + |y|)/2 lt.eq sqrt(x^2 + y^2)$ and $sqrt(x^2 + y^2) lt.eq 2(|x| + |y|)$ \
@@ -1180,3 +1181,127 @@ the mapping $L(V, W) arrow L(W', V')$ is equivalent to a transpose over some sui
 ])
 
 a motivation for studying duality is fourier transform
+
+== Feb 27
+
+#defn([Invariant Subspace],[
+
+Let $T in L(V, V) = L(V)$ \
+
+We say that subspace $U $ is invariant under the map $T$ if $u in U arrow.double T(u) in U$ \
+
+"elements (in $U$ ) stay in the same space under the operation $T$ "
+
+])
+
+#example([],[
+
+Let $A: RR^n arrow RR^n$ map $v arrow A v$ \
+
+Then eigenvectors $v_e$  satisfy the equation $A v_e = lambda v_e in span{v_e}$ \
+
+Then, the eigenspace $U :=span{v_e}$ is invariant under $A$ \
+
+Proof: let $u in U$ then $u = c v_e$ and $A u = A(c v_e) = c lambda v_e in U$  
+
+])
+
+#example([],[
+
+Given $T in L(V, V) = L(V)$  \
+
+Then ${bold(0)}$ is an invariant subspace under $T$ since $T(bold(0))=0 in {bold(0)}$ \
+
+$"Null" T$ is also invariant since for $u in "Null" T$ we have $T(u) = 0 in "Null" T$   \
+
+$"Range"T$ is also invariant since for $u in "Range"T$ then $T(u) in "Range"T$    
+])
+
+#definition([resitrcted operator, quotient operator],[
+
+Given $T in L(V)$  
+
+Assume $U $ is invariant subspace under $T$ \
+
+Then the restircted operaotr $T|_U : U arrow U$ is defined to be $T|_U (u) = T(u)$  \
+
+quotient operator: $T \/ U : V \/U arrow V\/U$ which mapps an affine subset to another affine subset which is defined by $T \/ U(v + U) = T(v) + U$ 
+
+We may want to check that the quotient operator is well defined, since elements in quotient spaces may have multiple names \
+
+Recall taht a well defined map is a map where each element in domain has unique image
+
+])
+
+#defn([Eigenvector, Eigenvaluae],[
+
+$V_e$ is a special nonzero vector associated with an operator $T$ (or equivalently the matrix form of $T$ ) such that $T(v_e) = lambda v_e$  for some $lambda in FF$  Here, $lambda$ is called an eigenvalue \
+
+Remark: does not makes sense for eigenvectors to be 0 since there would be inifinitely many eigenvalues $lambda$ for $0$  
+
+])
+
+#defn([Eigenspace],[
+
+The 1 dimensional subspace $span{v_e}$ is called the eigenspace. It has basis of a single eigenvector 
+
+It is invariant under  $T$ 
+
+])
+
+#theorem([LADR 5.7],[
+
+From the book
+
+
+],[
+$lambda$ is an eigenvalue of $T$ $iff$ there is non-zero solution such that $T(v) = lambda v$ holds. Since this equation is equivalent to $(T - lambda I)v = 0$ then this implies that the map $T - lambda I$ has a non-zero null space and thereofre non injective, and therefore not surjective and therefore not bijective/invertible    
+
+])
+
+#remark([Recall that $det(T - lambda I) = 0$ is called the "characteristic equation"])
+
+#remark([Eigenvalues can be real or complex depending on the choice of $FF$ ]) 
+
+#example([Solving for eigenvalues which may be complex],[
+
+Given in the lecutre notes TODO
+
+])
+
+#theorem([LADR 5.11],[
+
+every list of eigenvectors $v_1, dots, v_m$  of some $T in L(V)$ which correspond to unique eigenvalues $lambda_1, dots, lambda_m$  are linearly independent \
+
+
+
+furthermore if $dim(V) = m$ then $v_1, dots, v_m$ are an eigenbasis or in other words, $V = span{v_1} xor span{v_2} xor dots xor span{v_m}$   
+
+],[
+
+We can prove by contradiction \
+
+Assume that ${v_1, dots, v_m}$ are linearly dependent \
+
+without loss of generality we may assume that $k $ is the smallest index such that $v_k span{v_1, v_2, dots, v_(k-1)}$ \
+
+Then $v_k = a_1 v_1 + dots + a_(k-1) v_(k-1) arrow.double.l.r lambda_k v_k = a_1 lambda_k v_1 + dots + a_(v-1) lambda_(k-1) v_(k-1)$
+
+Applying $T$ to $v_k$ gives $T(v_k) = a_1 T(v_1) + a_2 T(v_2) + dots + a_(k-1) T(v_(k-1)) arrow.double.l.r lambda_k v_k = a_1 lambda_1 v_1 + dots + a_(k-1) lambda_(k-1) v_(v_(k-1))$   \
+
+Combining the two equations on the right side above gives $ 0 = a_1 (lambda_1 - lambda_k) v_1 + dots + a_(k-1) (lambda_(k-1) - lambda_k) v_(k-1)$ \
+
+But each $(lambda_1 - lambda_k) ...$ must be $0$ since $v_1, dots, v_(k-1)$ is linearly independent \
+
+Contradicition
+
+
+])
+
+#remark([
+
+To characterisze the behavior of $T$ we can examine $T(v_1), dots, T(v_m)$ where $v_1, dots, v_m $ are eigenvectors of $T$ \
+
+This is even better than examining $T(e_1), dots, T(e_m)$ since using eigenvectors we don't have to know the image under each $v_i$  
+
+])

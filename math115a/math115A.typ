@@ -5,7 +5,7 @@
 #let title = "math115A lecture notes"
 #let author = "Alice Bob"
 
-#show: notes.with(title, author, continuous: true)
+#show: notes.with(title, author)
 #env_headers.update("classic")
 #env_colors.update("classic")
 
@@ -1509,3 +1509,136 @@ So $(-1/p) = 1$ and therefore $p = 4 k + 1$ for some $k$ \
 Hence $ p = p_i$ say and now $(dagger)$ gives $0 equiv -1 (mod p_i)$   
 
 ])
+
+== Feb 27
+
+Law of Quadratic Reciprocity continued \
+
+We repeated the definition of the Legendre symbol \
+
+#theorem([],[Suppose that $p $ is an odd prime, then $ sum_(a=1)^(p-1) (a/p) = 0 $
+
+So there are exactly $(p-1)\/2$ quadratic residues and $(p-1)\/2$ quadratic non residues $mod p$  
+ ],[
+
+Let $r $ be a primitive root $mod p$
+
+For any $a $ with $1 lt.eq a lt.eq p-1$ there exists a unique $k $ with $1 lt.eq k lt.eq p-1 $ such that $a equiv r^k (mod p)$ Then
+
+$ (a/p) = (r^k/p) equiv (r^k)^((p-1)\/2) equiv (r^((p-1)\/2))^k equiv (-1)^k (mod p)$ (euler's crieterion check this TODO) \
+
+Note that $r^((p-1)\/2) equiv -1 (mod p)$ since $r $ is a primitive root $mod p$ 
+
+Hence $(a/p) = (-1)^k$ since $(a/p)$ and $(-1)^k$  are both equal to $plus.minus 1$ We therefore have $ sum_(a=1)^(p-1) (a/p) = sum_(k=1)^(p-1) (-1)^k = 0 $   
+
+
+ ]) 
+
+ #corollary([],[
+
+The quadratic residues $mod p $ (p is odd) are congruent to the even powers of a primitive root $mod p $ while the non-residues are congruent to the odd powers
+
+ ],[])
+
+ #example([],[2 is a primitive root mod 13 \
+ 
+ Taking the even powers of 2, we have they $2^2 dots 2^12$ are congruent to $4,3,12,9,10,1$ which are the quadratic residues, while if we take odd power of $2$ then the quadratic non-residues are $2,8,6,11,5,7$    
+ 
+ ])
+
+ #lemma([Gauss's Lemma],[
+
+Let $p $ be an odd prime, and suppose $a in ZZ$ with $(a,p)= 1$ 
+
+Let $n$ denote the number of integers in the set $S = {a,2a,3a,dots,(p-1)/2 a}$ whose smallest positive residue $mod p $ exceeds $p/2$ \
+
+Then $(a/p) = (-1)^n$ 
+
+
+ ],[
+
+Consider the set $S$ \
+
+Let ${r_1, dots, r_n}$ be the set of residues in $S$ that exceed $p/2$   
+
+Let ${s_1, dots, s_n}$ be the remaining residues in $S$ \
+
+Then the $r_i$ and $s_j$ are all distinct, and non-zero, and we have $n+m = (p-1)/2$  \
+
+Observe that $ 0 lt p - r_i < p/2$ for $(i - 1, dots, n)$ and the numbers $p - r_i$ are distinct  \
+
+Claim: no $p - r_i$  is equal to an $s_j$
+
+First, suppose that $p - r_i = s_j (star)$ \ 
+
+Then $r_i equiv rho a (mod p)$ and $s_j equiv sigma a (mod p)$ for some $1 lt.eq rho, sigma lt.eq (p-1)/2$ and $rho eq.not sigma$ \
+
+Thereofre $star$ implies that $rho - rho a equiv sigma a arrow.double a (sigma + rho) equiv 0 arrow.double sigma + rho equiv 0 (mod p)$ which is impossible and proves the claim
+
+So the integers $p-r_1, p-r_2, dots, p-r_n, s_1, s_2, dots, s_m$ are all distinct. They all lie between 1 and $(p-1)/2$  and there are $(p-1)/2$ of them. Hence they are just the numbers $1,2,dots, (p-1)/2$  in some order. \
+
+So $ (p-r_1)(p-r_2) dots (p-r_n) s_1, dots s_m = 1 dot 2 dot 3 dots (p-1)/2 $ $ (-r_1) (-r_2) dots (-r_n) s_1, dots, s_m equiv 1 dot 2 dot 3 dots (p-1)/2 $ $ (-1)^n r_1 r_2 dots r_n s_1 dots s_m equiv 1 dot 2 dot 3 dots (p-1)/2 $ $ (-1)^n a dot 2a dots (p-1)/2 a equiv 1 dot 2 dot 3 dots (p-1)/2 $ $ (-1)^n dot a^((p-1)\/2) equiv 1  $ $ (-1)^n equiv a^((p-1)\/2) equiv (a/p) $ all modulo $p$ where the very last equivalence holds by Euler's criterion \
+
+Note that in the above, it is implied that $(a/p) = (-1)^n$ 
+
+ ])
+
+ #example([Gauss's Lemma],[
+
+let $p=13$ and $a=5$ then $(p-1)\/2 = 6$ and $S = {5,10,15,20,25,30}$
+
+modulo 13 $S$ is equivalent to the set $5,10,2,7,12,4$ and 3 of these integers exceed $13/2$ (i.e. 10,7,12) therefore $(5/13) = (-1)^3 = -1$    
+
+ ])
+
+ Note that "residue" has equivalent meaning to "remainder"
+
+ We can use Gauss's Lemma to prove serveral interesting results
+
+ #theorem([],[Let $p $ be an odd prime, then $ (2/p) = cases(1 "if" p equiv 1 (mod 8) or p equiv 7 (mod 8), -1 "if" p equiv 3 (mod 8) or p equiv 5 (mod 8)) $ ],[
+
+Let $S = {1 dot 2, 2 dot 2, 2 dot 3, dots, 2 dot (p-1)/2}$ 
+
+Let $n$ be the number of integers in $S$ that have remainder $> p/2$ when divided by $p$    
+
+Then Gauss's lemma implies that $(2/p) = (-1)^n$ \
+
+Since all elements of $S$ are less (mod p) than $p$ , in order to determine $n$ we have to count the number of elements of $S$ which are $> p/2$ 
+
+If $k$ is such that $1 lt.eq k lt.eq (p-1)/2$ then $2k < p/2 arrow.double.l.r k < p/4$   
+
+Let $[]$ denote the integer part of some value 
+
+Therefore there are [p/4] integers in $S$ less than $p/2$ \
+
+$therefore n = (p-1)/2 - [p/4]$ 
+
+Now $ p = 8k+1 arrow.double n = 4k - [2k + 1/4] = 4k - 2k = 2k $ $ p=8k+3 arrow.double n = 4 k + 1 - [2k + 3/4] = 4k + 1 - 2k = 2k + 1 $ 
+
+similarly, $p = 8k + 5 arrow.double n = 2k + 1$ and $p = 8k + 7 arrow.double 2k + 2$ \
+
+So $n$ is even iff $p = 8k + 1$ or $p = 8k + 7$ \
+
+and $n$ is odd iff $p = 8k + 3$ or $p = 8k + 5$ \
+
+Therefore $ (2/p) = (-1)^n = cases(1 "if" p equiv 1 (mod 8) or p equiv 7 mod 8, -1 "if" p equiv 3 (mod 8) or p equiv 5 (mod 8)) $  \
+
+ ])
+
+#remark([
+
+If $p = 8k + 1$  i.e. if $p equiv 1 (mod 8)$ or $p equiv 7 (mod 8)$ then $(p^2-1)/8 = ((8k plus.minus)^2 - 1)/8 = (64k^2 plus.minus 16k)/8 = 8k^2 plus.minus 2k$ an even integer
+
+Therefore $(-1)^((p^2 -1)\/8) = 1 - (2/p)$
+
+
+
+])
+
+#remark([If p = 8k + 3 i.e. if $p equiv 3 (mod 8)$ or $p equiv 5 (mod p)$ then $(p^2 -1)/8 = ((8k plus.minus 3)^2 - 1)/8 = 8k^2 plus.minus 6k + 1$ an odd integer 
+
+Therefore $(-1)^((p^2 - 1)/8) = -1 = (2/p)$   ])
+
+#corollary([],[If $p $ is an odd prime, then $(2/p) = (-1)^((p^2 - 1)\/8)$ ],[])
+
+Took a picture of the last 3 boxes, check 

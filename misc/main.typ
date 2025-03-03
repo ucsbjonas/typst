@@ -1,4 +1,4 @@
-#import "nate_template.typ": *
+#import "misc/nate_template.typ": *
 
 #let title = "intro to modern cryptography"
 #let author = "Alice Bob"
