@@ -1337,7 +1337,7 @@ If $(star)$ from 0.14.10 does not have a solution, then $a $ is said to be a qua
 
 Last time
 
-#remark([
+#definition([quadratic residue],[
 
 Let $p $ be an odd prime, and let $a $ be an integer with $(a,p)=1$  \
 
@@ -1641,4 +1641,261 @@ Therefore $(-1)^((p^2 - 1)/8) = -1 = (2/p)$   ])
 
 #corollary([],[If $p $ is an odd prime, then $(2/p) = (-1)^((p^2 - 1)\/8)$ ],[])
 
-Took a picture of the last 3 boxes, check 
+Took a picture of the last 3 boxes, check
+
+== Mar 4
+
+Last time: Gauss's Lemma
+
+#theorem([],[
+Using Gauss's Lemma (last time) we showed that if $p $ is an odd prime, then $ (2/p) = (-1)^((p^2-1)/8) $ 
+
+
+],[])
+
+#theorem([],[If $p $ and $2p+1 $ are both odd primes, then the integer $(-1)^((p-1)\/2) dot 2$ is a primitive root mod $2p + 1$    ],[
+
+Set $q := 2p + 1$ 
+
+(part a) Suppose that $p equiv 1 (mod 4)$. Then $(-1)^((p-1)\/2) dot 2 = 2$ 
+
+Now $phi.alt(q) = q-1 = 2p$
+
+Therefore the order of $2 mod p$ is $1,2,p, "or" 2p$ \
+
+We have $(2/q) equiv 2^((q-1)\/2) mod(q) equiv 2^p (mod q)$ by euler's crieterion \
+
+But $q=2p+1$ so $q equiv 3 (mod 8)$ therefore $(2/q) = -1$ and $2^p equiv -1 (mod q)$ \
+
+and we can see the 2 does not have order $p mod q$
+
+Next, observe that also if $2^2 equiv 1 (mod q)$ then $q divides 3$ which is a contradiction. Therefore the order or $2$ mod $q$ is $2p$ i.e. $2$ is a primitive root $mod q$       
+
+(part b) Suppose that $p equiv 3 (mod 4)$ then $(-1)^((p-1)\/2) dot 2 = -2$ \
+
+We have $(-2)^p = (-2)^((q-1)\/2) equiv (-2/q) (mod q) equiv (-1/q)(2/q) (mod q)$ \
+
+Now $q = 2p + 1$ and so $q equiv 7 (mod 8)$  \
+
+Hence $(-1/q) = -1$ and $(2/q) = 1$ hence $(-2)^p equiv -1 (mod q)$ \
+
+Now we conclude as before that $-2$ is a primitive root $mod q$  
+
+])
+
+#remark([It is not known whether there are infinitely many primes $p $ such that $2p + 1 $ is also prime (called "Sophie Germain primes") ])
+
+#theorem([],[
+
+There are infinitely many primes of the form $8k - 1$ 
+
+
+],[
+
+Suppose that there are only finitely many such primes $p_1, dots, p_n$ and set $N = (4 p_1 dots p_n)^2 - 2$ \
+
+Since $N/2$ is odd, $N$ is divisble by an odd prime $p$ \
+
+This implies that $2 equiv (4 p_1, dots, p_n)^2 (mod p)$ and so $(2/p) = 1$ and hence $p equiv plus.minus 1 (mod 8)$
+
+If all prime divisors of $N$ are of the form $8k + 1$ then $N$ would be of the form $8 alpha + 1$. This would be a contradiction since $N $ is of the form $16 alpha - 2 $ \
+
+Therefore $N $ has a prime divisor $q $ of the form $8k - 1$ \
+
+Therefore $q divides N$ and $q divides (4 p_1 dots p_n)^2$ and $q divides 2$ which is a contradiction. The claim follows.
+
+])
+
+We will need the following result in the proof of the law of quadratic reciprocity \
+
+#theorem([],[Suppose that $p $ is an odd prime, and $a $ is an odd integer
+
+Then $(a/p) = (-1)^t$ where $ t = sum_(j=1)^(p-1\/2) [(j a)/p] $  
+
+],[
+
+We use the same notation as in the proof of Gauss's Lemma: $S = {a, 2a, dots, (p-1)/2 a}$ \
+
+${r_1, dots, r_n}$ is the set of residues of elements in $S$ that exceed $p/2$ and ${s_1, dots, s_m}$ are the remaining residues     \
+
+Dividing each of the integers $k a $ by $p$ yields $k a = q_k p + t_k$ for $1 lt.eq t_k lt.eq p-1 arrow.double (k a)/p = q_k + t_k/p arrow.double q_k = [(k a)/p]$ \
+
+Hence for $1 lt.eq k lt.eq (p-1)\/2$ we have $k a = [(k a)/p] p + t_k$ $(dagger)$ \
+
+If $t_k > p/2$ then $t_k $ is one of the integers $r_1, dots, r_n$ 
+
+If $t_k < p/2$ then $t_k$ is one of the integers $s_1, dots, s_m$ \
+
+Therefore taking the sum of the equations $(dagger)$ gives $ sum_(k=1)^((p-1)\/2) k a = sum_(k=1)^((p-1)\/2) [(k a)/p]p + sum_(k=1)^n r_k + sum_(k=1)^m s_k (*) $ \
+
+Now from the proof of Gauss's Lemma the $(p-1)\/2$ integers $p-r_1, p-r_2, dots, p-r_n, s_1, dots, s_m$ is some rearrangement of the integers $1,2,dots, (p-1)/2$ 
+
+So $ sum_(k=1)^((p-1)\/2) k = sum_(k=1)^n (p - r_k) + sum_(k=1)^m s_k = p n - sum_(k=1)^n r_k + sum_(k=1)^m s_k (dagger dagger) $ \
+
+Subtracting $(dagger dagger)$ from $(*)$  yields $ (a-1) sum_(k=1)^((p-1)\/2) k = p (sum_(k-1)^((p-1)\/2)-n) + 2 sum_(k=1)^n r_k (dagger dagger dagger)$ 
+
+Observe that $p equiv a equiv 1 (mod 2)$ So $(dagger dagger dagger ) $ yields $ 0 dot sum_(k=1)^((p-1)\/2) k equiv 1 dot (sum_(k=1)^((p-1)\/2) [(k a)/p]-n)+0 (mod 2) arrow.double n equiv sum_(k=1)^((p-1)\/2) [(k a)/p] (mod 2) $ \
+
+And the result follows from Gauss's Lemma: \
+
+$(a/p) = (-1)^n = (-1)^t$ 
+
+])
+
+#example([
+],[Example $p=13$ and $a=5$ since $(p-1)/2 = 6$ we calculate $[(k a)/p]$ for $k = 1,2, dots, 6$  
+
+$[5/13]=[10/13]=0$
+
+$[15/13]=[20/13]=[25/13]=1$
+
+$[30/13] = 2$
+
+We can observe that $(5/13) = (-1)^(1+1+1+2) = (-1)^5 = -1$ 
+])
+
+#theorem([],[
+
+Suppose that $p, q $ are distinct odd primes. Then $ (p/q)(q/p) = (-1)^((p-1)/2 dot (q-1)/2) $  
+
+],[
+
+Let $R$ denote the rectangle (not including the boundary) in the xy plane with vertices $(0,0) (p/2,0) (0,q/2), (p/2, q/2)$  
+
+])
+
+== March 6
+
+#theorem([The Law of Quadratic Reciprocity],[
+
+Suppose that $p, q $ are distinct odd primes. Then $ (p/q) (q/p) = (-1)^((p-1)/2 (q-1)/2) $ 
+
+
+],[
+
+Let $R $ denote the rectangle (not including the boundary) in the xy plane whose vertices are  $(0,0) (p/2,0) (0,q/2), (p/2, q/2)$ 
+
+Aim: count the number of lattice points (i.e. points with integer coordinates) in two different ways.
+
+1st way: Since $p,q $ are both odd, the lattic points in $R $ consist of all points $(n,m)$ with $1 lt.eq n lt.eq (p-1)/2$ and $1 lt.eq m lt.eq (q-1)/2$ \
+
+Therefore the total number of such points is $(p-1)/2 dot (q-1)/2$ 
+
+2nd way: Let $D $ denote the diagonal from $(0,0)$ to $(p/2, q/2)$  
+
+Aim: count the number of lattice points above $D $ and below $D$ \
+
+Claim: None of the lattice points in $R $ lies on $D $ \
+
+The equation of $D $ is $y = q/p x$ i.e. $p y = q x (dagger)$ 
+
+Suppose that $(x_1, y_1)$ is a lattice point on $D $. Then $(dagger )$ implies that $p y_1 = q x_1$. But since $p$ and $q $ are coprime, this implies that $p divides x_1$  and $q divides y_1$, therefore there are no such points in $R$
+
+Therefore for $1 lt.eq k lt.eq (p-1)\/2$ there are exactly $[(k q)/p]$ lattice points in $T_1 $ directly above $(k,0)$ and below $D_1$ (these points lie on the vertical line segment from $(k,0)$ to $(k, (k q)/p)$ ) where $T_1$ is the region below the diagonal 
+
+Therefore the total number of lattice points in $T_1 = sum_(k=1)^((p-1)\/2) [(k q)/p]$ 
+
+A similar calculation (interchanging the roles of $p $ and $q $ ) show that the total number of lattic points in (above the diagonal) $T_2 = sum_(j=1)^((q-1)\/2) [(j p) / q]$ 
+
+Therefore we have $ (p-1)/2 dot (q-1)/2 = sum_(k=1)^((p-1)\/2) [(k q)/p] + sum_(j=1)^((p-1)\/2) [(j q)/p] $
+
+Now, we showed earlier that $(p/q) = (-1)^(sum_(j=1)^((q-1)\/2)) [(j p )/ q]$ and $(q/p) = (-1)^(sum_(k=1)^((p-1)\/2)) [(k q)/p]$  
+
+Therefore wethe claim holds
+
+])
+
+#corollary([],[If $p, q $ are distinct odd primes then $ (p/q)(q/p) = cases(1 "if" p equiv 1 (mod 4) or q equiv 1 (mod 4), -1 "if" p equiv q equiv 3 (mod 4)) $ ],[
+
+Observe that $(p-1)/2 (q-1)/2$  is even if and only if at least one of $p,q $ is of the form $4k + 1$. If both are of the form  $4k + 3$, then $(p-1)/2 dot (q-1)/2$ is odd. (look at the quadratic reciprocity)    
+
+])
+
+#corollary([],[If $p, q$ are distinct odd primes, then $ (p/q) = cases((q/p)"if" p equiv 1 (mod 4) or q equiv 1 (mod 4), -(q/p) "if" p equiv q equiv 3 (mod 4))  $  ],[
+
+by the corollarly 0.18.2
+
+])
+
+#example([],[Consider the Legendre symbol $(29/53)$ 
+
+We have $29 equiv 1 (mod 43)$ and $53 equiv 1 (mod 4)$ so $(29/53) = (53/29) = (24/29) = (2/29)(3/29)(4/29) = (2/29)(3/29)$ \
+
+Now since $(2/29) = -1$ since $29 equiv 5 (mod 8)$ \
+
+and $(3/29) = (29/3) = (2/3) = -1$ 
+
+and we have that $(29/53) = (2/29)(3/29) = 1$ 
+
+])
+
+#example([
+
+Modulo which primes $p$ where $p eq.not 3$ is 3 a quadratic residue? 
+
+
+],[
+
+Answer: apply quadratic reciprocity law: 
+
+$ (3/p) = cases((p/3) "if" p equiv 1 (mod 4), -(p/3) "if" p equiv 3 (mod 4)) $ 
+
+Nowe we have $p equiv 1 (mod 3)$ or $p equiv 2 (mod 3)$ We can see easily that $ (p/3) = {1 "if" p equiv 1 (mod 3), -1 "if" p equiv 2 (mod 3)} $   
+
+Hence $(3/p)=1$ iff either $p equiv 1 (mod 4) and p equiv 1 (mod 3) (dagger)$ or $p equiv 3 (mod 4) and p equiv 2 (mod 3) (dagger dagger)$ \
+
+$(dagger)$ holds iff $p equiv 1 (mod 12)$ and 
+
+$(dagger dagger)$ holds iff $p equiv 11 (mod 12)$ i.e $p equiv -1 (mod 12)$
+
+So we deduce that if $p eq.not 3$  is an odd prime, then $(3/p) = cases(1 "if" p equiv plus.minus 1 (mod 12), -1 "if" p equiv plus.minus 5 (mod 12))$ 
+
+])
+
+#defn([The Jacobi Symbol],[
+
+Let $Q$ be a positive odd integer, so that $Q = q_1, dots, q_s$ (note that $q_i $ are odd and not necessarily distinct primes) \
+
+Suppose $P in ZZ$ with $(P, Q) = 1$ The jacobi symbol $P/Q$ is defined by $  (P/Q) = prod_(i=1)^s (P/q_i) $  where $(P/q_i)$  is the legendere symbol  
+
+])
+
+#remark([
+
+$P $ is a quadratic residue mod $Q$ implies that $P$ is a quadratic residue mod each $q_j$ implies that $(P/q_j) = 1$ for each $j$ implies $(P/Q) = 1$       
+
+
+])
+
+#remark([However, $(P/Q) = 1$  does not imply that $P$ is a quadratic residue mod $Q$
+
+For example, $(2/15) = (2/3)(2/5) = (-1)(-1)=1$
+
+But $x^2 equiv 2 (mod 15)$ has no solution ])
+
+#remark([If $Q$ is odd, then $a $ is a quadratic residue mod $Q$ iff $(a/p) = 1$ for every prime $p $ dividing $Q$ 
+
+Therefore $(a/Q) = -1$  implies that $a $ is a quadratic nonresidue $mod Q$ 
+
+For example, $(6/35) = (6/5)(6/7) = (1/5)(-1/7) = -1$ so $6 $ is a quadratic non-residue $mod 35$ 
+
+    ])
+
+#theorem([],[Suppose that $Q, Q'$ are odd and positive. Then 
+
+(i) $ (P/Q)(P/Q') = (P/(Q Q'))  $ (ii) $ (P/Q)(P'/Q) = ((P P') / Q) $ (iii) if $(P, Q) = 1$ then $ (P^2/Q) = (Q/P^2) = 1 $ \ (iv) If $(P P', Q Q') = 1$ then $ ((P' P^2)/(Q' Q^2)) = (P'/Q') $ \ (v) If $P equiv P' (mod Q)$ then $ (P'/Q) = (P\Q) $    
+
+
+],[
+
+(i) follows from the definition of $(P/Q)$
+
+(ii) Follows from (i) and the multiplicativity of the legendre symbol
+
+(iii) Follows from (i, and ii)
+
+(iv) Follows from (ii and i)
+
+(v) Set $Q = q_1 dots q_s$ then $P equiv P' (mod q_j)$ so $(P'/q_j) = (P/q_j)$ and deduce the result from this 
+
+])

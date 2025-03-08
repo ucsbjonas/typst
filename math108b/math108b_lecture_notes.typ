@@ -1305,3 +1305,199 @@ To characterisze the behavior of $T$ we can examine $T(v_1), dots, T(v_m)$ where
 This is even better than examining $T(e_1), dots, T(e_m)$ since using eigenvectors we don't have to know the image under each $v_i$  
 
 ])
+
+== Mar 4
+
+Last time: invariant subspaces, eigenvectors, eigenvalues
+
+Today: eigenvalues in triangular matrices
+
+upper triangular matrix: $mat(delim:"[", a_(11), *, *, * ; 0, a_22, *, *; 0,0,a_(33), *)$ and lower triangular matrix (picture ommitted)
+
+#proposition([A square triangular matrix is invertible iff the $a_(i i)$ entries on diagonal are all non-zero ],[
+
+Recall that the determinant of a triangular matrix is $prod_(i=1)^n a_(i i)$ \
+
+remark: eigenvalues of traingular matrix are diagonal entries \
+
+then the statement regarding invertibility follows since $det(A - lambda I) = det mat(delim:"[", a_(1 1) - lambda, * ,*,*;*,a_(2 2) - lambda, * , *; *,*, a_(3 3) - lambda, * ) = prod_(i=1)^n (a_(i i) - lambda) = 0$ 
+
+])
+
+#remark([Can we relate $T in L(V)$ or its matrix form $M(T)$ to some triangular matrix?
+
+If we can find a basis of $V$ then we have the matrix form $M(T)$, therefore if we have the eigenvalues of $T$ then we have eigenvalues to $M(T)$
+
+It is possible to discuss eigenvalues of $T$ by itself without any basis of $V$])
+
+#remark[
+
+Can we always find some nonzero $v in V$ s.t. $T v = lambda v$ for some $lambda$ ? 
+
+equivalently, can we always find some 1 dimensional invariant subspace under a given $T$ ? 
+
+
+Let's find out ... 
+]
+
+#theorem([existence of eigenvalues LADR 5.19],[Every operator on a finite-dimensional nonzero complex vector space has an
+eigenvalue],[
+
+#theorem([Fundamental theorem of algebra],[
+
+For an $n$ degree polynomial with complex coefficients $P_n$ there are $n$ complex roots ${z_i}_(i=1)^n$ such that $P_n(z_i) = 0$    \
+
+In other words if we can factor $a_0 + a_1 z_ + dots + a_n z^n$ into $c (z - z_1) (z - z_2) dots (z - z_n) = 0$ if $z_1, dots, z_n$ are roots and $a_0, dots, a_n$ are complex numbers    
+],[])
+
+Define $P_n (T) = a_0 + a_1 T + dots + a_n T^n = c(T-Z_1 I) (T - Z_2 I) dots (T - Z_n I)$ to be a polynomial where the 'variable' is $T$ and the basis elements are $I, T, T^2, dots T^n$ 
+
+\
+
+Let $dim(V) = n$ and $v in V$ be a nonzero vector \
+
+We can first claim that $v, T v, T^2 v, dots, T^n v$ is linearly dependent (since this is a list of n+1 vectors in V) \
+
+Then there exists complex weights ${a_i}_(i=0)^n$ are not all zeros such that $a_0 v + a_1 T v + a_2 T^2 v + dots + a_n T^n v = 0$ 
+
+In particular, observe that ${a_i}_(i=1)^n$ cannot be all zeroes, otherwise we would have $a_0 v + 0 + dots + 0 arrow.double a_0 v = 0 arrow.double a_0 = 0$ since $v$ is non zero \
+
+Consider the factorization $0 = (a_o I + a_1 T + dots + a_n T^n)(v) = c (T - Z_1 I)(T-Z_2 I) dots (T-Z_n I)(v)$ then by the fundamental theorem of algebra at least one equation $T - Z_i I = 0$ \
+
+Then there exists some nonzero vector $v$ such that $(T - Z_i I)(v) = 0$ which implies that $T - Z_i I$ is non injective and $Z_i$ is an eigenvalue of $T$ by LADR 5.7      
+
+])
+
+#remark([fill in (TODO)])
+
+#theorem([],[Any linear operator $T in L(V)$ on finite-dim complex vector spaces there exist some basis of $V$ such that its matrix form $M(T)$ is triangular   ],[
+
+#theorem([conditions for upper/lower-triangular matrix (LADR 5.39)],[
+
+Suppose we have $T in L(V)$ and ${v_1, dots, v_n}$ is a basis of $V$ then the following are equivalent: \
+
+(a) $M(T)$ w.r.t. ${v_1, dots, v_n}$  is upper triangular \
+
+(b) $T(v_j) in span{v_1, dots, v_j}$ holds for $j = 1,2, dots, n$  \
+
+(c) $span{v_1, dots, v_j}$ is invariant under $T$ and this holds for $j = 1,2, dots, n$    
+
+in other words,  (c) states that $T(v_1) in span{v_1} arrow.double.l.r span(v_1)$ is invariant, $T(v_2) in span{v_1, v_2} arrow.double.l.r span{v_1, v_2}$ is invariant, etc. 
+
+
+],[
+
+
+Recall that the matrix representation of some operator $T$ can be represented as $ M(T) = mat(delim:"[", [T(v_1)], [T(v_2)], dots, [T(v_n)] ) $ where each $[T(v_i)]$ is a column for some basis ${v_1, dots, v_n}$ of $V$. Expanding $M(T)$ we can see that $M(T)$ is upper triangular. 
+
+We can also show for lower triangular (I think by switching each $[T(v_i)]$ to be a row of $M(T)$  )
+
+])
+])
+
+#theorem([],[Given any linear operator $T in L(V)$ on f.d.v.s. complex vector space $V$ there exist some basis of $V$ such that $M(T)$ is triangular    ],[
+
+TODO: fill in
+
+
+])
+
+might have to read chapter 4
+
+== March 6
+
+#remark([
+
+Last time: any linear operator $T in L(V)$ where $V$ is finite-dimm, complex vector space has a triangular (upper or lower) matrix form with respect to some basis $beta $ of $V$  
+
+Recall that some linear transform $T:(V, beta) arrow (V, beta)$ has a matrix representation $M(T) = mat([T(b_1)]_beta, [T(b_2)]_beta, dots, T[b_n]_beta)$ 
+
+is triangular if $T(b_j) in span{b_1, b_2, dots, b_j})$  
+
+where $[T(b_j)]_beta = vec(a_(1j),a_(2 j), dots.v, a_(j j),0) arrow.double.l.r T(b_j) = a_(a j) b_1 + a_(2 j) b_2 + dots + a_(j j) b_j + 0$
+
+is a column of $M(T)$ \
+
+
+
+])
+
+#remark([$T:(V, C) arrow (V, C)$ then $M_C (T)$ differs from the above, as it may be non-traiangular form (?)  ])
+
+#remark([vector form, coordinate form, and matrix form of a linear transform
+
+these can be written symbolically as $T(v), [T(v)]_beta in FF^n, M(T) dot [v]_beta$  respectively
+
+Notice that vector form does not depend on basis (and is somewhat harder to deal with) and the others are easier to deal with
+
+])
+
+#theorem([Schur's theorem],[
+
+For $T in L(V)$, $T$ has a triangular form w.r.t. orthonormal basis  
+
+],[
+
+let $beta = {b_1, dots, b_n }$ be a basis of $V$ then by gram schmidt we can obtain a set $C = {e_1, dots, e_n}$ which is an orthonormal basis 
+
+Recall that $span{b_1, dots, b_j} = span{e_1, dots, e_j}$
+
+since we know that the triangular matrix $M_beta (T)$ exsists then it follows that $T(b_j) in span{b_1, dots, b_j}$
+
+We would like to show that $T(e_j) in span{e_1, dots, e_j}$
+
+Formally, $T(e_j) = T(x_1 b_1 + dots + x_j b_j) = sum_(i=1)^j x_i T(b_i) in span{b_1, dots, b_i} subset.eq span(b_1, dots, b_i, b_(i + 1), dots b_j) = span(e_1, dots, e_j)$ 
+
+])
+
+#theorem([],[Every linear operator has a triangular form w.r.t some basis],[
+
+By induction
+
+Let $V = {v_1} xor W$ 
+
+the following is the induction hypothesis:
+
+let $U = span{v_1}$ so that $dim(U) = 1$ and $dim(V \\ U) = n-1$ 
+
+(1) then the quotient map $T \\ U: V \\ U arrow V \\ U$ is a linear operator from $(n-1)$ dim to $(n-1)$ dim 
+
+There exists a basis of $V \\ U$ which we denote by ${v_2 + U, v_3 + U, dots, v_n + U}$ where each element is an affine subset \
+
+then $T(v_j + U) in span{v_2 + U, dots, v_j + U}$
+
+end induction hypothesis
+
+want to show if ${v_1, v_2, dots, v_n}$ is a basis of $V$, then $T(v_j) in span{v_1, dots, v_2, dots, v_j}$  
+
+(2) restriction map 
+
+let $U = "range"(T - lambda_1 I) eq.not $ eigenspace ${v_1} subset.eq "Null"(T - lambda_1 I)$
+
+Note that $dim U < dim V$ since $T - lambda_1 I$ is not injective, surjective, or bijective. These are equivalenet to saying that $"Null"(T - lambda_1 I)$ and $"Range"(T - lambda_1 I)$ is not full rank
+
+formally, $T u = (T - lambda_1 I)u + lambda_1 u arrow.l.r V = "Range"(T - lambda I) xor "Range"^(perp)$ corresponds to $V = span(u_1)$ i.e. that $span{u_1} subset.eq "Null"(T - lambda_1 I)$
+
+Then define the restirction operator $T|_U: U arrow U$ and need to show that $U$ is invariant under $T$
+
+Note that for $u in U$ that $T u = (T - lambda_1 I)u + lambda_1 u in U$ and this in the range $"Range"(T - lambda_1 I)$, then $U $ is invariant
+
+the inductive hypothesis is as follows:
+
+since $U$ is invariant and if its basis is ${u_1, u_2, dots, u_k}$ is a basis of $U$ then $T|_U (u_j) in span{u_1, dots, u_j}$
+
+end of hypothesis
+
+we want to extend to ${u_1, dots, u_k; v_1, dots, v_(n-k)}$ basis of $V$ \
+
+so we want to show that $T|_U (u_j) = T(u_j)$ for $j = 1, dots, k$ 
+
+TODO: fill in
+])
+
+Section 5.C Diagonal matrices
+
+eigenvalues are on the diagonal
+
+geometric multiplicity $lt.eq $ algebraic multiplicity
+

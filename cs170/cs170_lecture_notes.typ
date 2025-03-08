@@ -160,3 +160,32 @@ each inode represents 1 file \
 
 largest file in the system? (review slide 46 on fs slidesd)
 
+== march 4
+
+translation lookaside buffer (TLB)
+stores page number to frame number mappings \
+
+stops the page walk in heirarichal page table (after the first walk)
+
+context switch, must clear TLB \
+
+== march 6
+
+pipe structure: readers, writers, nslots, nelem, size, unsigned char buffer, head, tail 
+
+semaphore: checks to see if empty
+
+writing into the pipe: the write call write(p[1], buffer, sizeof(buffer)) must be atomic (i.e. two writers cannot write their buffer in overlapping way), must test this, "atomic up to 8k" as in the man page will not be tested
+
+writer is entitled to write into pipe wehn there are no readers (?)
+
+test: read a pipe with no writers, and pipe is empty, pipe has not enough space
+
+return eof when no more writers and buffer is empty (when trying to read)
+
+test: writer count is 1, 
+
+8k pipe size
+
+table of file descriptors: can be free, belong to consoles, or belong to pipe
+
