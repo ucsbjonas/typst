@@ -1899,3 +1899,170 @@ For example, $(6/35) = (6/5)(6/7) = (1/5)(-1/7) = -1$ so $6 $ is a quadratic non
 (v) Set $Q = q_1 dots q_s$ then $P equiv P' (mod q_j)$ so $(P'/q_j) = (P/q_j)$ and deduce the result from this 
 
 ])
+
+== March 11 
+
+The Jacobi symbol continued
+
+#defn([],[
+
+Suppose that $Q$ is an odd positive integer with $Q = q_1 dots q_s$ (where $q_i $ are not necessarily distinct primes)
+
+suppose $P in ZZ$ with $(P, Q) = 1$ 
+
+then we define the jacobi symbol $(P/Q)$ as $(P/Q) = prod_(j=1)^s (P/(q_j))$ where $(P/(q_j))$ is the legendere symbol   
+
+])
+
+#theorem([],[
+
+If $Q $ is odd, and $Q > 0 $ then $(-1/Q) = (-1)^((Q-1)\/2)$ and $(2/Q) = (-1)^((Q^2 -1)\/8)$   
+
+],[
+
+$ (-1/Q) = prod_(j =1)^s (p/q_j) = prod_(j = 1)^s (-1)^((q_j -1)\/2) = (-1)^(sum_(j=1)^s (q_j -1)\/2) $ 
+
+Now observe that if $a,b$ are odd then $ (a b - 1)/2 - ((a-1)/2 + (b-1)/2) = ((a-1)(b-1))/2 equiv 0 (mod 2) $ and so $ (a-1)/2 + (b-1)/2 equiv (a b -1)/2 (mod 2) $     
+
+Applying this repeately gives $ sum_(j=1)^s (q_j -1)/2 equiv 1/2 ([prod_(j=1)^s q_j]-1) equiv (Q-1)/2 (mod 2) $ 
+
+Hence $(-1/Q) = (-1)^((Q-1)\/2)$ 
+
+Similarly, if $a,b$ are odd then $ (a^2 b^2 -1)/8 - ((a^2 -1)/8 + (b^2 -1)/8) = ((a^2 -1)(b^2 -1))/8 equiv 0 (mod 2) $    
+
+and so $(a^2 -1)/8 + (b^2 -1)/8 equiv (a^2 b^2 -1)/8 (mod 2)$
+
+Therefore $(2/Q) = prod_(j=1)^s (2/q_j) = (-1)^(sum_(j=1)^s (q_j^2 -1)\/8) = (-1)^((Q^2 -1)\/8)$ 
+
+])
+
+#theorem([],[
+
+If $P,Q$ are odd and positive, and $(P,Q)=1$ then $(P/Q) (Q/P) = (-1)^(P-1/2 Q-1/2)$    
+
+],[
+
+Use law of quadratic reciprocity
+
+Set $P = sum_(i=1)^r (p_i)$ and $Q = prod_(j=1)^s q_j$
+
+Then $ (P/Q) = prod_(j=1)^s (P/q_j) = prod_(j=1)^s prod_(i=1)^r (p_i/q_j) = prod_(j=1)^s prod_(i=1)^r (q_j/p_i) (-1)^((p_i -1)/2 (q_j -1)/2) = (Q/P) dot (-1)^(sum_(j=1)^s sum_(i = 1)^r (p_i-1)/2 (q_j -1)/2) $ 
+
+Now just as before $sum_(i=1)^r (p_i - 1)/2 equiv (p-1)/2 (mod 2)$ and $sum_(j=1)^s (q_j -1)/2 equiv (Q-1)/2 (mod 2)$ Hence $(P/Q) = (Q/P) dot (-1)^((P-1)/2 (Q-1)/2)$    
+
+])
+
+#remark([
+If we try to define $ (P/Q) = cases(+1 "if" P "is a quadratic residue" mod Q, -1 "if" P "is a quadratic non-residue" mod Q) $ then we lose the reciprocity law e.g. Take $P = 5$ and $Q = 9$
+])
+
+
+#example([],[
+
+Using Jacobi symbols can sometimes helps us evaluate legendre symbols
+
+For example $((105)/(317)) = (317/105) = (2/105) = 1$ where the first equlaity holds by the "quadratic reciprocity" of Jacobi symbols
+
+So 105 is a quadratic residue modulo 317
+  ])
+
+#example([],[
+
+Consider the congruence $x^2 equiv 196 (mod 1357) (dagger)$
+
+Since $1357 = 23 dot 59$ then $(dagger)$ is soluble if and only if both $x^2 equiv 196 (mod 23)$  and $x^2 equiv 196 (mod 59)$ are soluble 
+
+So we evaluate $(196/23)$  and $(196/59)$ 
+
+Firstly, $(196/23) = (12/23) = (3/23) = 1$ and secondly, $(196/59) = (19/59)= -(59/19) = -(2/19) = -(-1) = 1$  so $(dagger)$ can be solved 
+
+How do we find the solutions?
+
+Note that $x^2 equiv 196 equiv 12 (mod 23)$ is satisfied by $x equiv 9,14 (mod 23)$  
+
+$x^2 equiv 196 equiv 19 (mod 59)$ is satisfied by $x equiv 14,45 (mod 59)$  
+
+Now we use the Chinese remainder theorem to obtain the simultaneous solutions of the following systems of congruences: 
+
+$x equiv 14 (mod 23)$ and $x equiv 14 (mod 59)$  
+
+$x equiv 14 (mod 23)$ and $x equiv 45 (mod 59)$
+
+$x equiv 9 (mod 23)$  and $x equiv 14 (mod 59)$ 
+
+$x equiv 9 (mod 23)$ and $x equiv 45 (mod 59)$
+
+The answers are $x equiv 14, 635, 722, 1345 (mod 1357)$ (note that these answers given by the professor may be wrong) 
+
+])
+
+quadratic congruences with composite moduli
+
+#theorem([],[
+
+Suppose that $p $ is an odd prime and $a in ZZ$ with $(a,p)=1$ 
+
+Then $x^2 equiv a (p^n)$ for $n gt.eq 1$ $(star)$
+
+is solvable if and only if $(a/p) = 1$ 
+
+],[
+Plainly if $(star)$ is soluble so is $x^2 equiv a (mod p)$ whence (therefore) $(a/p) = 1$
+
+Now suppose that $(a/p) = 1$  and use induction on $n$ \
+
+Assume that the result holds for $n = k gt.eq 1$ i.e. that $x^2 equiv a (p^k)$ admits a solution $x_0$ Then $x_0^2 = a + b p^k$ for some $b$
+
+Now consider the congruence $2 x_0 y equiv -b (mod p)$ : this has a unique solution $y equiv y_0 (mod p)$ (say) \
+
+Now consider the integer $x_1 = x_0 + y_0 p^k$ 
+
+We have $x_1^2 = (x_o + y_0 p^k)^2 = x_0^2 + 2 x_0 y_0 p^k + y_0^2 p^(2 k)  equiv a + (b + 2 x_0 y_0) p^k + y_0^2 p^(2 k)$ 
+
+But $p divides (b + 2x_0 y_0)$ and so $x_1^2 equiv a (p^(k+1))$  
+])
+
+#theorem([],[
+
+Suppose that $a $ is an odd integer
+
+(i) $x^2 equiv a (mod 2)$ always has a solution
+
+(ii) $x^2 equiv a (mod 4)$ has a solution if and only if $a equiv 1 (mod 4)$  
+
+(iii) For $n gt.eq 3$ then $x^2 equiv a (mod 2^n)$ has a solution if and only if $a equiv 1 (mod 8)$   
+
+],[
+
+(i) and (ii) are "easy"
+
+for (iii):
+
+If $x^2 equiv a (mod 2^n)$ and $n gt.eq 3 $  has a solution, becasue the square of any odd integer is congruent to $1 mod 8$  
+
+i.e. $(4 k plus.minus 1)^2 = 16 k^2 plus.minus 8 k + 1 equiv 1 (mod 8)$ 
+
+Fix a value of $n gt.eq 3$ and assume that $x^2 equiv a (mod 2^n)$ has a solution $x_0 $ 
+
+So $x_0^2 = a + b 2^n$  for some $b$ where $a$ is odd (therefore $x_0$ is odd also ) 
+
+Consider the congruence $x_0 y equiv -b (mod 2)$ 
+
+This has a unique solution $y equiv y_0 (mod 2)$ say
+Now look at the integer $x_1 = x_0 + y_0 2^(n-1)$
+
+Therefore $x_1^2 = (x_0 + y_0 2^(n-1))^2 = x_0^2 + x_0 y+0 2^n + y_0^2 dot 2^(2n -2) = a + (b + x_0 y_0) 2^n + y_0^2 2^(2 n -2)$ 
+
+Now $2 divides (b + x_0 y_o)$ and $2n-2 = n+1 - (n-3) > n+1$ 
+
+Therefore $x_1^2 = (x_0 + y 2^(n-1))^2 equiv a (mod 2^(n+1))$
+
+Look up p-adic numbers
+
+TODO: fill in (took a picture)
+ 
+
+])
+
+
+

@@ -1501,3 +1501,103 @@ eigenvalues are on the diagonal
 
 geometric multiplicity $lt.eq $ algebraic multiplicity
 
+== March 11
+
+#defn([Algebraic Multiplicity],[
+
+the number of identical igenvalues in the characteristic equation  $det (A - lambda I) = 0$ 
+
+])
+
+#defn([Geometric multiplicity, Eigenspace],[
+
+the number of linearly independent eigenvectors in the eigenspace $ E(lambda, T) = {v in V: T(v) = lambda v} = null(T - lambda I) $ 
+
+])
+
+#defn([],[
+
+We say that $T in L(V)$ is diagonalizable if there exists some basis of $V$ such that $M(T)$ is a digonal matrix \
+
+Terminology: "similar"
+
+])
+
+#example([
+
+$ T vec(x,y) = mat(41x + 7 y; -20 x + 74 y) $ \
+
+Note that $M_beta (T) = mat(41,7;-20,74)$ where each column is $[T(e_1)]_beta$ 
+
+],[
+
+To solve for eigenvalues, we need to solve for $lambda $ in the equation $ det mat(41-lambda, 7; -20, 74 - lambda) = (41-lambda)(74-lambda) - (7 dot (-20)) = 0 $ \
+
+After solving we obtain the eigenvalues $lambda_1 = 69, lambda_2 = 46$
+
+Solving for the first eigenvector using the equation $mat(-28,7;-20,5) vec(x,y) = vec(0,0)$ we obtain the eigenvector $vec(x, y) = vec(1,4)$
+
+The other eigenvector is $vec(7,5)$ 
+
+What happens if we exmaine $mat(41,7;-20,74) = mat(1,7;4,5) = mat(69 vec(1,4), 46 vec(7,5)) = mat(1,7;4,5) mat(96,0;0,46)$  where the third matrix has two columns
+
+We call the diagonal matrix $mat(96,0;0,46)$ $D$ and in general for any $D$ the following is true: \
+
+multiplying a matrix by $D$ which multiply each $D_(i i)$ onto the "ith" column, and left mutplying by $D$ multiplies $D_(i i)$ into the ith row     
+
+])
+
+#remark([
+  
+  Let $S$ be an invertible matrix $S$ \
+
+  Then $A$ is similar to $D$ if the following is true: \
+
+  $S^(-1) A S = D arrow.double.l.r A = S D S^(-1)$    
+
+])
+
+
+
+#example([],[
+
+Application: "dynamical system"
+
+consider the equation $ (d x)/(d t)=  f(x) $ where $x$ represent velocity, $(d x)/(d t)$ is acceleration, and $f(x)$ is "force" \
+
+Consider the system of differentical equations $(d x_1)/(d t) = f_1 (x_1, x_2)$ and $(d x_2)/(d t) = f_2(x_1, x_2)$
+
+We can rewrite this sytem of equations to be $d/(d t) (x_1, x_2) = T(vec(x_1, x_2))$ where $T: RR^2 arrow RR^2$ and $T(vec(x_1, x_2)) = vec(f_1(x_1, x_2), f_2(x_1, x_2))$  
+
+See the lecture notes (TODO)
+
+])
+
+#theorem([],[Suppose $lambda_1, dots, lambda_m$ are distinct eigenvalues of $T in L(V)$ where $V$ is f.d. then the following are equivalent: \
+
+(a) $T$ is diagonalizable
+
+(b) $V $ has a baiss consisting of all eigenvectors to $T$ \
+
+(c) there exists 1 dimensional subspaces invariant under $T$ 
+such that $V = U_1 xor U_2 xor dots xor U_n$
+
+(d) $V = E(lambda_1, T) xor E(lambda_2, T) xor dots xor E(lambda_m, T)$ (note that some of these $m$ subspaces have dimension greater than 1 )
+
+(e) $dim(V) = dim(E(lambda_1,T)) + dim(E(lambda_2, T)) + dots + dim(E(lambda_m), T)$ 
+
+    ],[remark: for every $lambda_k$ we need geometric multipliity = algebraic multiplicity 
+    
+    for example, if $lambda_k$ is a root to $det(A - lambda I) = 0$ with algebraic multiplicity 3, then we need $dim(E(lambda_k, T)) = 3 arrow.double.l.r E(lambda_k, T) = U_(n 1) xor U_(n 2) xor U_(n 3) = span(v_(n 1)) xor span(v_(n 2)) xor span(v_(n 3))$   
+    
+     ])
+
+#remark([In practice, there are better sufficient conditions for diagonalizablitiy
+
+such as symmetric-ness or 
+
+])
+
+final: up to 5C, may have "notation" problems
+
+
