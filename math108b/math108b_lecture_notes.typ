@@ -1601,3 +1601,37 @@ such as symmetric-ness or
 final: up to 5C, may have "notation" problems
 
 
+final exam:
+
+
+diagonal matrices, triangular matrices
+
+no questions on contraction property of projectin operator, no questions on riesz theorem
+
+although there may be questions about invariant spaces created by projection, and riesz representation could help with $T in L(V)$ by $T(u) = angle.l. u, v_T angle.r$
+
+computation: matrix representation + diagonalization, eigen related computation
+proof based questions will be easier then homework
+
+
+reflection presentations: \
+
+#remark([final day reflections
+
+
+question on midterm 2 about sujectivity of linear operators (proof by dimension)
+
+midterm question  about "problem/issue" with the definition of $T^tilde$
+
+midterm question about charaterization problem
+
+homework question: is there a particular reason that we define the image of dual basis as the kronecker delta? is the set $T_1, dots, T_n$ a nonstandard dual basis? 
+
+practice final about $T$ and $T'$ 
+
+dual map relationship to matrix representation
+
+signular value decomposition
+
+])
+
