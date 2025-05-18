@@ -4,6 +4,23 @@
 #import pstat_mod:*
 #import cs_mod: *
 
+
+#import "@preview/unify:0.6.0": num, qty, numrange, unit
+#import "@preview/physica:0.9.3": *
+#import "@preview/quill:0.5.0": *
+
+#let hbar = $planck.reduce$
+#let tp = $times.circle$
+#let expec(a) = $angle.l #a angle.r$  // expectation
+
+#let zbasis = $plus.circle$
+#let xbasis = $times.circle$
+
+// to prevent formatting errors in the Y basis
+#let pli = $+ #h(0em) i$
+#let nei = $- #h(0em) i$
+
+
 #show: thmS-init.with(colors: "gruvbox_dark", headers: "classic")
 #show: notes.with("Post Quantum Cryptography", "Spring 2025", depth: 3, continuous: true)
 
@@ -1171,4 +1188,377 @@ Since $r,x, s star x$ are known parameters then this proof simplifies to showing
 
 It follows by 12.1.8
 
+])
+
+= Lecture 13: Quantum Query Security
+
+#notation([Orcale to access to function $f$ ],[
+
+$cal(A)^f$ for some function $f$ means that adversary $cal(A)$ has can query the oracle $f$ which will respond with $f(x)$ if $x$ is the query.
+
+These queries can be made multiple times (if the same query $x$  is made more than once, $f(x)$ will not change)
+
+])
+
+#defn([Pseudorandom Function],[
+
+A function $"PRF": {0,1}^lambda times {0,1}^n arrow {0,1}^m$ is said to be pesudorandom if $ cal(A)^("PRF"(k,dot)) approx_c cal(A)^(g(dot)) $ where $k unif {0,1}^lambda$ and $g$ is a random function $g: {0,1}^n arrow {0,1}^m$      
+
+])
+
+#defn([Random Oracle Model],[
+
+We give adversary $cal(A)$ black box access to hash function $H$ (denoted $cal(A)^(H)$) where $H$ is modeled as a random function.
+
+This idealized settings often helps in theoretical crypto
+
+In the real world, adversaries typically have access to the "source code" of hash function $H$  
+
+])
+
+#note([
+
+In the post quantum setting, adversaries can query on a quantum superposition of inputs, thereby giving
+the adversary a superposition of the values of the function at many inputs at once
+
+This was referred to in lecture as "superposition" "attacks"
+
+Effectively, adversaries no longer necessarily make polynomially many queries to a function but can feasibly query expotentially many times 
+
+])
+
+#defn([Quantum Oracle Access (standard oracle)],[
+
+We let $f: {0,1}^n arrow {0,1}$ be some classical function and $U_f$ be the unitary operator representating which implments $f$   
+
+In the post quantum setting, $cal(A)$ can make the query $ sum_(x in {0,1}^n) alpha_x ket(x) ket(0) $  and receive back $ sum_(x in {0,1}^n) alpha_x ket(x) ket(f(x)) $ 
+
+More Generally, $cal(A)$ queries a unitary $U_f$ where $U_f ket(x) ket(y) arrow.bar ket(x) ket(y xor f(x))$    
+
+The XOR is needed in order to ensure reversibility of $U_f$  
+
+It is a commonly cited fact that if $f$ is efficiently computable/implementable then $U_f$ is also efficiently computable/implementable   
+
+])
+
+#defn([Phase Oracle],[
+
+The phase oracle is defined as $ U_f^(plus.minus): ket(x) arrow.bar (-1)^(f(x)) ket(x) $ 
+
+For example, if we query the standard oracle on $sum_x ket(x) ket(-)$ then:  (To save space, we omit the sum in the following derivation to save some typing) 
+
+$ U_f (ket(x) 1/sqrt(2) (ket(0)-ket(1))) = 1/sqrt(2) (ket(x) ket(0 xor f(x)) - ket(x) ket(1 xor f(x))) $
+
+If $f(x)=0 arrow.double 1/sqrt(2) (ket(x) ket(0) - ket(x) ket(1)) = ket(x) ket(-)$
+
+Similarly $f(x) = 1 arrow.double 1/sqrt(2) (ket(x) ket(1) - ket(x) ket(0)) = - ket(x) ket(-)$
+
+Overall, we have $U_f ket(x) ket(-) = (-1)^(f(x)) ket(x) ket(-)$ 
+
+])
+
+#prop([Extracting $s$ from $angle.l x, s angle.r$ (Bernstein-Vazirani)],[
+
+Question: can we learn certain properties about some function $f$ more efficiently in the quantum query setting?
+
+Let $f_x: {0,1}^n arrow {0,1}$ be defined as $f_s (x) = angle.l x, s angle.r = x dot s$ (bitwise dot product)
+],[
+
+In classical setting, if $s$ is length $n$ then we will need $n$ XOR operations to reveal each bit of $s$ individually
+
+However, one invocation of Bernstein-Vazirani algorithm is sufficient to reveal $s$ 
+
+The Bernstein-Vazirani algorithm takes as input $ket(0)^(tp n)$ (an $n$ qubit state) and then applies three sequential operations: $n $ qubit hadamard, $U^(plus.minus)_f$, and another $n $ qubit hadamard:
+
+$ ket(0)^(tp n) arrow^(H^(tp n)) sum_(x in {0,1}^n) 1/sqrt(2^n) ket(x) arrow^(U^(plus.minus)_f) sum_(x in {0,1}^n) 1/sqrt(2^n) (-1)^(f_s (x)) ket(x) arrow^(H^(tp n)) \ sum_(x in {0,1}^n) 1/sqrt(2^n) (-1)^(x dot s) (sum_(y in {0,1}^n) 1/sqrt(2^n)(-1)^(x dot y) ket(y)) = \ 1/2^n sum_(y in {0,1}^n) (sum_(x in {0,1}^n) (-1)^(x dot s) (-1)^(x dot y) ket(y)) = \ 1/2^n sum_(y in {0,1}^n) (sum_(x in {0,1}^n) (-1)^((s xor y)x) ket(y)) $
+
+where the second equality comes from the fact that we are working addition mod 2
+
+In the case that $y = s$ we obtain $ 1/2^n sum_(y in {0,1}^n) (sum_(x in {0,1}^n) 1 ket(y)) = 1/2^n sum_(y in {0,1}^n) (2^n) ket(y) = 2^n ket(y) $, revealing $ket(s)$ after measurement
+
+In the case that $y eq.not s$ we obtain $ 1/2^n sum_(y in {0,1}^n) (sum_(x in {0,1}^n) (-1)^(alpha dot x) ket(y)) = bold(0) $  
+
+])
+
+#note([A nice example running the Bernstein-Vazirani algorithm can be found in section 3.4.1 in \ https://physlab.org/wp-content/uploads/2023/05/BernsteinVazirani_23100071_Fin.pdf])
+
+== Quantum Query Secure Pseudorandom functions
+
+#notation([quantum query access],[
+
+We let $cal(A)^f$ denote classical query access to $f$ \
+
+Let $cal(A)^(ket(f))$ denote quantum query access to $f$  
+
+])
+
+#concept([Quantum Query Security],[
+
+We are interested if PRFs such that $ {cal(A)^(ket("PRF"(k,dot)))} approx_c {cal(A)^(ket(g))} $   
+
+where $k unif {0,1}^lambda$ and $g$ is a random function $g: {0,1}^n arrow {0,1}^m$
+
+$cal(A)$ is a quantum polynomial time algorithm (its number of gates is polynomial in the length of the input) 
+
+Such PRFs we can call quantum PRF or QPRF
+
+[Zhandry' 13] showed that $exists$ PRF construction which satisfies classical query security but doesn't satisfy quantum query security 
+
+The LWR based PRF has been shown to satisfy quantum query security (recall that $"PRF"(k,x) = floor(A product_i S_i x_i)_p$ from earlier (4.0.10))
+
+We will show that PRF based on one way function does satisfy quantum query security
+
+])
+
+#defn([GGM construction of PRF],[
+
+GGM stands for Goldreich-Goldwasser-Micali
+
+The following is a PRF: $ "PRF"(k,x) = G^(x_l)(G^(x_(l-1))(dots(G^(x_1)(k))dots) $ 
+
+The construction is tree based and utilizes a length pesudorandom generator $G: {0,1}^lambda arrow {0,1}^(2 lambda)$ with a key $k in {0,1}^lambda$ and input $x = x_1, dots, x_l in {0,1}^l$. We let $G^0$ and $G^1$ denote the first and second halves of the output of $G$ respectively  
+ 
+The proof of security follows from the security of $G$ which is a pesudorandom generator (i.e. it is indistinguisable from uniform)
+
+In each hybrid $H_i, i in 1,dots,l$ we give $cal(A)$ access to a function $F_i$ wich are as follows:   
+
+$ F_1 &= "PRF"(k, x) =  G^(x_l)(G^(x_(l-1))(dots(G^(x_1)(k))dots) \ F_2 &= G^(x_l)(G^(x_(l-1))(dots(P_1(x_1))dots) \ &dots.v \
+
+ F_i &= G^(x_l)(G^(x_(l-1))(P_i (x_1, dots, x_i))) \ &dots.v \
+ 
+ F_l &= P_l (x_1, dots, x_l)
+ 
+ $ 
+
+ where $P_i: {0,1}^i arrow {0,1}^lambda$ is a random function 
+
+ Then $F_l$ is equivalent to a random function \ $qed$ 
+
+])
+
+#defn([Indistinguishability of distributions],[
+
+Two distributions $D_1, D_2$ over a set $cal(Y)$ are said to be computationally (resp. staistically) indistinguisable if no efficient (resp. computationally unbounded) quantum algorithm $A$ can distinguish a sample of $D_1$ from a sample of $D_2$
+
+In other words, for all $A$ there is a negligible function $epsilon$ such that $ |Pr_(y arrow.l D_1) [A(y)=1] - Pr_(y arrow.l D_2) [A(y)=1]| lt epsilon $    
+
+
+(from definition 2.4 from How to Construct Quantum Random Functions by Mark Zhandry)
+
+])
+
+#defn([Oracle Indistinguishability],[
+
+Two distributions $D_1, D_2$ over a set $cal(Y)$ are computationally (resp. staistically) oracle-indistinguishable if, for all sets $cal(X)$ no efficient (resp. computationally unbounded) quantum algorithm $B$ can distinguish $D_1^(cal(X))$ from $D_2^(cal(X))$ using a polynomial number of quantum queries. that is, for all $B$ and $cal(X)$ there is a neglible function $epsilon$ such that $ |Pr_(O arrow.l D_1^(cal(X)))[B^(ket(O))()=1] - Pr_(O arrow.l D_2^(cal(X)))[B^(ket(O))()=1]| lt epsilon $            
+
+(definition 2.5)
+
+
+])
+
+#theorem([distinguishable iff oracle-distinguishable],[Let $D_1$ and $D_2$ be efficiently sampleable distributions over a set $cal(Y)$. Then $D_1$ and $D_2$ are indistinguishable if and only if they are also oracle-indistinguishable],[very complicated])
+
+#defn([Small Range Distribution],[
+
+Fix sets $cal(X)$ and $cal(Y)$ and a distribution $D$ on $cal(Y)$.Fix an integer $r$. Let $y = (y_1, ..., y_r)$ be a list of $r$ samples from $D$ and let $P$ be a random function from $cal(X)$ to $[r]$. The distributions on $y$ and $P$ induce a distribution on functions $H : X arrow Y$ defined by $H(x) = y_(P(x))$.This distribution is called a small-range distribution with $r$ samples of $D$
+
+
+])
+
+#lemma([Small Range],[There is a universal constant $C_0$ such that, for any sets $cal(X)$ and $cal(Y)$,
+distribution $D$ on $Y$, any integer $l$, and any quantum algorithm $A$ making $q$ queries to an oracle $H : cal(X) arrow cal(Y)$, the following two cases are indistinguishable, except with probability less than $(C_0 q^3)/l$:
+
+1. $H(x) = y_x$ where $y$ is a list of samples of $D$ of size $|cal(X)|$.
+2. $H$ is drawn from the small-range distribution with $l$ samples of $D$],[Very complicated])
+
+#theorem([
+
+If G is a standard-secure PRG, then PRF from 13.1.3 is a QPRF.
+
+The basic idea of the proof is that under the assumption thet 
+
+],[])
+
+= Lecture 14 Quantum Query Security continued, signatures
+
+
+#defn([Digital signatue security (classical)],[
+
+Here we repeat the definition of classical digital signatures
+
+for a signing key $s k$ and verification key $v k$ the adversary $cal(A)$  makes polynomially queries $m_1, dots, m_q$ to the challenger
+
+The challenger sends to $cal(A)$  both the $v k$ and $sigma_1, dots sigma_q$ where $sigma_i arrow "sign"(s k, m_i)$
+
+We say that if the probability that PPT $cal(A)$ outputs $(m^*, sigma^*)$ such that $ "verify"(v k, m^*, sigma^*) = "VALID" "and" \ m^* in.not {m_1, dots, m_q} $  is negligible, then the signature scheme $("Gen", "sign", "verify")$ is secure (sometimes referred to as chosen message secure) 
+
+])
+
+#defn([Quantum Digital Signature Security],[
+
+The definition is very similar to 14.0.1
+
+For $s k, v k arrow.l "Gen"()$ the challenger gives a efficient quantum algorithm $cal(A)$ $v k$
+
+$cal(A)$ is then makes some polynomially many $q$ quantum message queries $sum_(m,y) alpha_(m y) ket(m) ket(y)$ and receives back from the challenger $sum_(m,y) alpha_(m y) ket(m) ket(y xor "sign"(s k, m; r))$
+
+Crucially, we note for each query $cal(A)$ must sample the returned superposition of signatures \ $sum_(m,y) alpha_(m y) ket(m) ket(y xor "sign"(s k, m; r))$ which means that $cal(A)$ will obtain one message/signature pair $(m_i, sigma_i)$ 
+
+Then we require that the probability that $cal(A)$ outputs $(m_1, sigma_1, dots, m_(q+1), sigma_(q+1))$ after $q$ queries such that $"verify"(v k, m_(i), sigma_(i)) = "VALID", i in 1, dots, q+1$ is negligible. Additionally, all $q+1$  message/signature pairs must be distinct
+
+to summarize, in order to win $cal(A)$  must produce $q+1$ unique valid signature pairs   
+])
+
+#prop([Equivalent methods for implementing a randomized sign],[
+
+The following two methods for imoplementing a randomized sign algorithm are equivalent: \
+
+1) choose a single randomness value for each chosen
+message query, and sign every message in the superposition with that randomness. 
+
+2) choose fresh randomness for each message in the superposition
+
+],[
+
+To sign a message $m$, compute and output $"QPRF"(k,m)$ where $k$ is fresh random key sample once per query and $"QPRF"$ is a quantum pesudorandom function.   
+
+])
+
+#concept([Seperation],[
+In the context of quantum cryptogrpahy, "seperation" means secure under classical queries, but completely insecure once an adversary can make quantum queries
+])
+
+#definition([Seperation Signature Scheme],[
+
+Fix positive integers $N, N'$ and let the message space $cal(M) = {0,1, dots, N-1}$
+
+Let $cal(S) = ("Keyen", "Sign", "Verify")$ be a signature scheme that signs messages in $cal(M)$ and let $"PRF"$ be a pseudorandom function with domain $cal(M)$
+
+Define a new signature scheme $cal(S)^tilde = ("Keygen"^tilde, "Sign"^tilde, "Verify"^tilde)$ as follows: \
+
+$"Keygen"^tilde (lambda)$:
+
+sample $k unif {0,1}^lambda$, $p arrow "random prime in" [N'/2, N')$ and let $(s k, v k) arrow.l "Keygen"(lambda)$
+
+Output $v k^tilde = v k$ and $s k^tilde = (s k, k, p)$
+
+$"Sign"^tilde ((s k, k, p), m):$
+
+$s_1 arrow.l "PRF"(k,m mod p)$
+
+$s_2 arrow.l cases(s k "if" m = p, 0 "if" m eq.not p)$
+
+$sigma arrow.l "Sign"(s k, (m, s_1, s_2))$
+
+output $(sigma, s_1, s_2)$ 
+
+$"Verify"^tilde (p k,m,(sigma, s_1, s_2)):$ 
+
+output $"Verify"(v k, (m, s_1, s_2), sigma)$ 
+
+])
+
+#theorem([14.0.5 is secure according to 14.0.2],[
+
+If $cal(S)$ is secure according to definition 14.0.1, then $cal(S)^tilde$ is also secure against 14.0.1 but insecure against 14.0.2  
+
+],[
+
+Both classical and quantum security were proven in [Boneh, Zandry 2013 - "Secure Signatures and Chosen Ciphertext Security
+in a Quantum Computing World"]
+
+In class we only discussed the quantum query security.
+
+[Boneh, Lipton 95] showed that there exist a period finding algorithm which does the following: given some function $f_p$ such that $f_p (x) = f_p (x+p) forall x$ and quantum oracle access to $f_p$, $p$ is efficiently recoverable.
+
+In 3.0.5. $f_p$ is $"PRF"(k,m mod p)$
+
+This implies if we can extract the $s_1$ for all $m$ then $p$ is recoverable. Then an we can query on $m=p$ (classically) and obtain $s k$, breaking the scheme
+
+To obtain $s_1$ we devise the following "$s_1$ oracle": \
+
+Query the oracle(which runs verify) on $sum alpha_(m,y) ket(m) ket(y)$ which returns $sum alpha_(m,y) ket(m) ket(y xor (s_1^(m), s_2^(m), sigma^m)) ket(s_1^(m))$  
+
+Then, choose some $y'$ and query the oracle on $sum alpha_(m,y) ket(y xor (s_1^(m), s_2^(m), sigma^m)) ket(s_1^(m) xor y')$ to obtain  \ $ sum alpha_(m,y) ket(m) ket(y) ket(y' xor s_1^(m)) $   as desired
+
+])
+
+#note([For construction in 3.0.5 $cal(A)$ can also try to guess some messages $m_1, dots, m_q$
+
+If any of the $m_i = p$ or $m_i equiv m_j (mod p), i eq.not j$ for some gussed $p$ then $cal(A)$ also wins. This was shown in [Boneh, Zandry 2013] to only occur with neglible probability.])
+
+== Signature scheme satisfying quantum query security
+
+We first define a "chameleon" hash function:
+
+#defn([Chameleon Hash Function],[
+
+A chameleon hash function is a tuple of efficient algorithms $(G, H, "Inv, Sample")$
+
+where $G(lambda) arrow (s k, p k)$
+
+$H(p k,m,r)$ maps messages to some space $cal(Y)$
+
+$"Sample"(lambda)$samples $r$ from some distribution such that for every $p k$ and $m$, $H(p k,m,r)$ is uniformly distributed
+
+$"Inv"(s k,h,m) arrow r$ such that $H(p k,m,r) = h$  and $r$ is distributed negligibly close to $"Sample"(lambda)$ conditioned on $H(p k,m,r) = h$ 
+
+The chamelon hash function is said to be collision resistanat if no efficient quantum algorithm given only $p k$ can find collisions in $H(p k, dot, dot)$ 
+
+#note([One construction of chameleon hash function relies on the hardness of SIS (Cash et al.)])
+
+#note([$D_1 approx_s D_2$ follows directly from definition: where $D_1 = (h,m,r)$ such that $"Inv"(s k,h,m) arrow r$  and  $D_2 = (h,m,r)$ such that $r arrow.l "sample"(), H(p k,m,r) = h$])
+
+])
+
+#defn([sig scheme (quantum query secure)],[
+
+Let $cal(S) := ("KeyGen", "Sign", "Verify")$ be secure against classical adversaries
+
+We want to design $cal(S^tilde) := ("KeyGen"^tilde, "Sign"^tilde, "Verify"^tilde)$ which is quantum query secure
+
+$"KeyGen"^tilde (lambda):$
+
+Run $KeyGen() arrow (s k, v k)$ and $G(lambda) arrow (s k_H, p k_H)$ where the second tuple is the key pair for the chamelon hash function  $(G, H, "Inv, Sample")$
+
+Output $s k =m, s k^tilde (s k, p k_H)$ and $v k^tilde = (v k, p k_H)$  
+
+$"Sign"^tilde (m, s k^tilde)$: 
+
+$r arrow.l "Sample"()$, $h = H(p k_H,m,r)$, $sigma arrow.l "Sign"(s k, h)$
+
+output $(r, sigma) = sigma^tilde$ 
+
+$"Verify"^tilde (v k^tilde, m, sigma^tilde)$:
+
+parse $sigma^tilde = (r, sigma)$ 
+
+compute $H(p k_H,m,r) = h$
+
+output the result of $"Verify" (v k, h, sigma)$ 
+
+Note: this is an example of "hash then sign"
+])
+
+
+#theorem([security of 14.1.4],[14.1.4 is secure according to 14.0.2],[
+
+(sketch only) \
+
+First we should note that in the original paper [Zhandry, Boneh 13] that  $cal(S)$ is secure against classical adversaries in the sense that it is secure against attackers where the adversary is restricted to query on unifromly random messages (in this case hashes)
+
+The goal of the proof is that under the assumption that $cal(S)^tilde$ is not quantum query secure against $cal(A)$ , show that the security of $cal(S)$ does not hold.
+
+First, we consider an adversary $cal(A)$ which performs the classical chosen message attack (14.0.1) on $m_1, dots, m_q$. The challenger responds by computing $H(p k, m_i, r_i) arrow h_i$ uniformly using Sample() and optionally run $"Inv"(s k_H, h_(i), m_(i)) arrow r_(i)^m$, then $"Sign"(s k, h_i) arrow sigma_i$ and outputs $(r_i, sigma_i)$ (or $(r_i^m, sigma_i)$ ) for $i in 1, dots, q$. Therefore for any message the challenger is able to respond.
+
+If the adversary $cal(A)$ performs a quantum query attack via quantum queries $q_i = sum alpha_(m,y) ket(m) ket(y)$ for $i = 1, dots, q$, the challenger will need to sign an expotential number of messages. However, using the small range lemma (13.1.8) the number of $l$ hashes needed to sign is reduced to a large polynomial (see 13.1.8). 
+
+By assumption $cal(A)$ is able to $q+1$ valid message/signature pairs (unique) $(m^(*)_i, sigma^*_i, dots, m^(*)_(q+1), sigma^*_(q+1))$ each corresponding to random hashes $h_1, dots, h_(q+1)$  
+
+Since $l > q+1$ (see 13.1.8) then we can consider the 2 cases:
+
+1: $exists i$ such that $h_i$ was signed in the interaction between $cal(A) $ and challenger. Then we have a forgery for message $h_i$ the security of classical scheme $cal(S)$ is broken      
+
+
+2: $exists.not i$ such that $h_i$ was signed in the interaction between $cal(A)$ and challenger. We can pick a one of the $q$ respones to the queries that $cal(A)$ made and perform a measurement and succeed with $1/q$ probability. [Zhandry, Boneh 13] argues that two of the message/signature output by $cal(A)$ are in some sense "the same" in the sense that they correspond to the same query.   
 ])
