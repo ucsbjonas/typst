@@ -126,7 +126,7 @@ $||x-y||_infty = 1$
 
 ])
 
-#defn([inhomogenous SIS, (ISIS) ], [
+#defn([inhomogeneous SIS, (ISIS) ], [
 
 It is "hard" for an adversary to find $x$ such that $A x = y$ given $y unif ZZ_q^m$ and $A$    
 
@@ -150,7 +150,7 @@ The following is a hard problem: given $A in ZZ_q^(n times m)$ where $m >> n$ an
 
 SIS is conjectured to be secure against both classical PPT adversaries and quantum adversaries
 
-Inhomogenous SIS: Given $(A,y)$ find short $x$ such that $A x = y$   
+Inhomogeneous SIS: Given $(A,y)$ find short $x$ such that $A x = y$   
 
 ])
 
@@ -199,7 +199,7 @@ setup: signing key sk and verification key vk \
 sign(sk, $D$) generates signature $sigma$ on message $D$ \
 verify(vk, $D, sigma$ ) generates VALID iff $sigma$ is valid on $D$ \
 
-corectness: verify works
+correctness: verify works
 security: for any  PPT $cal(A)$ which quries $q$ signatures and outputs $ cal(A) ((D_1, sigma_1), dots, (D_q, sigma_q)) arrow (D^*, sigma^*) $ the following is true: $ Pr[D^* in.not {D_1, dots, D_q} and (D^*, sigma^*) "is VALID"] lt.eq "negl" $    \
 
 (typically negligible in some security parameter used in the generation algo)
@@ -213,7 +213,7 @@ in this case, out verification key vk = $A$ (the matrix) and the signing key sk 
 
 To sign some message $D$ we can perform the following steps: \
 
-1. from $D$ determinstically derive $y in ZZ_q^n$ (shown below) 
+1. from $D$ deterministically derive $y in ZZ_q^n$ (shown below) 
 2. find short $x$ such that $A x = y$
 3. output $sigma = x$    
 
@@ -236,7 +236,7 @@ verify(vk, $D, sigma$ ): \
 
 1. set $y:= H(D)$ and check that $A sigma = y$ and that $sigma$ is short (output VALID/INVALID accordingly)
 
-Corectness: trivially true \
+Correctness: trivially true \
 
 Security: (use random oracle model) \
 
@@ -248,7 +248,7 @@ Security: (use random oracle model) \
 
 Set the following: $A in ZZ_q^(m times n)$, $s in ZZ_q^n$, $e in ZZ_q^m$
 
-If we are given $A$ and $A s$, we can solve for $s$ using guassian elimination. Note that since $ZZ_q$ is a field, all elements have an inverse. \
+If we are given $A$ and $A s$, we can solve for $s$ using gaussian elimination. Note that since $ZZ_q$ is a field, all elements have an inverse. \
 
 However, given $A s + e$ and $A$ it is conjecture to be "hard"to solve for $s$ \
 
@@ -267,9 +267,9 @@ Let $chi$ be some distribution, and $A unif ZZ_q^(m times n), s unif ZZ_q^n, e a
 
 #defn([DecisionLWE(n,m,q, $chi$ )],[
 
-let $(A, A s + e)$ be as above and denote thie distribution $D_1$ \
+let $(A, A s + e)$ be as above and denote this distribution $D_1$ \
 
-also, let the distribution $D_2$ be $(A, b)$ where $b unif ZZ_q^m$ (recall that $A$ is also unifromly sampoled) \
+also, let the distribution $D_2$ be $(A, b)$ where $b unif ZZ_q^m$ (recall that $A$ is also uniformly sampled) \
 
 Then the following is true: $D_1 approx_c D_2$ for both PPT and quantum adversaries
 
@@ -279,11 +279,11 @@ If $s arrow.l chi^m$ then the above still holds
 
 #defn([public key encryption],[
 
-Say that Alice wants to communicate wiht Bob, then Alice will send Enc(x, pk) to Bob using Bob's pk and Bob will decrypt the message with his sk
+Say that Alice wants to communicate with Bob, then Alice will send Enc(x, pk) to Bob using Bob's pk and Bob will decrypt the message with his sk
 
 The algorithms are setup $arrow$ (pk, sk) $Enc(pk, x) arrow C$ and $Dec(C, sk) arrow x'$   
 
-Corectness: $x = x'$ 
+Correctness: $x = x'$ 
 
 Security: ${Enc(pk, x_0)} approx_c {Enc(p_k, x_1)}$ 
 
@@ -350,7 +350,7 @@ Decryption: compute $T (A s + e + x mat(0, dots, 0, floor(q/2))^T) = T A s + T e
 
 So the decrypted bit will be 0 if the above value is approx 0 and 1 if $||("above")||_infty gt.eq q/4$ 
 
-Corectness follows
+Correctness follows
 
 Security follows a similar path to proposition 3.0.7
 
@@ -360,10 +360,10 @@ Security follows a similar path to proposition 3.0.7
 
 #note([Intuition],[
 
-recall that $A s + e$ mod $q$ is indistinguisable from unifromly random
+recall that $A s + e$ mod $q$ is indistinguishable from uniformly random
 suppose $q = 2^lambda$  and $chi$ be uniform over ${0, dots, 2^l}$ such that $l << lambda$ 
 
-consider the binary representaiton of $A s + e$ then this implies that the least significant $l$ bits are jumbled
+consider the binary representation of $A s + e$ then this implies that the least significant $l$ bits are jumbled
 
 Learning with rounding simply discards these bits
 
@@ -408,9 +408,9 @@ ${floor(u)_p} approx_c {u'}$ where $u unif ZZ_q^m, u' unif ZZ_p^m$
 
 ])
 
-#defn([pesudorandom functions],[
+#defn([pseudorandom functions],[
 
-A function $F: {0,1}^lambda times {0,1}^n arrow {0,1}^m$  is called pesudorandom if 
+A function $F: {0,1}^lambda times {0,1}^n arrow {0,1}^m$  is called pseudorandom if 
 
 $ | Pr[1 arrow cal(A)^(F(k, dot)): k unif {0,1}^lambda] - Pr[1 arrow.l cal(A)^(g(dot)): g unif cal(F)] | lt.eq "negl" $
 
@@ -418,7 +418,7 @@ where $cal(F)$ denotes all functions from n bits to m bits
 
 #note([
 
-PRF($k,x$) = PRF($k_1, x_1$) || PRF($k_2, x_2$) is not a pesudorandom function
+PRF($k,x$) = PRF($k_1, x_1$) || PRF($k_2, x_2$) is not a pseudorandom function
 
 where the key and input are split in half respectively \
 
@@ -487,7 +487,7 @@ We now show some reductions between SIS, LWE, and LWR. Note the use of contrapos
 
 A problem is easy to solve if there exists some adversary (classical or quantum) which can solve the problem in polynomial (or potentially subexpotential) time
 
-#defn([SIS (search) is esasy],[
+#defn([SIS (search) is easy],[
 
 For $A in ZZ_q^(m times n)$ can efficiently find $x in ZZ_q^m$ such that $x^T A = 0$ where $x eq.not 0, ||x||_infty = "poly(log"(q)) << q$    
 
@@ -548,7 +548,7 @@ dLWE Solver (A, b):
 
 given $(A, A s + e)$ the goal is to find $s$ where $A in ZZ_q^(m times n), s in ZZ_q^(n), e in ZZ_q^(m)$
 
-write $A$ in the following way (seperate out leftmost column): $ A = mat(a_1, arrow.l a'_1 arrow.r; dots.v, dots.v; a_m, arrow.l a'_m arrow.r) $  
+write $A$ in the following way (separate out leftmost column): $ A = mat(a_1, arrow.l a'_1 arrow.r; dots.v, dots.v; a_m, arrow.l a'_m arrow.r) $  
 
 then we can make a guess for $g in ZZ_q$ and sample $c_i unif ZZ_q$ \
 
@@ -637,7 +637,7 @@ Then $u_1, dots, u_l$ is a lattice iff $cal(P)(u_1, dots, u_l) sect cal(L)(u_1, 
 #defn([shortest vector in lattice],[
 
 
-Defined by $ lambda_1(cal(L)) = min_(v in cal(L) \\ {0}) ||v||_2 $  where the norm is a euclidian 2 norm
+Defined by $ lambda_1(cal(L)) = min_(v in cal(L) \\ {0}) ||v||_2 $  where the norm is a euclidean 2 norm
 
 ])
 
@@ -651,9 +651,9 @@ We define $lambda_i (cal(L)) := $ smallest $r$ such that some subset of $cal(L)$
 
 $lambda_1, lambda_i$ are relative to the origin  
 
-A "good lattice basis" means that this basis generates a lattie for which calculating $lambda_1$ is easy
+A "good lattice basis" means that this basis generates a lattice for which calculating $lambda_1$ is easy
 
-A "bad lattice basis": cannot efficeintly calculate $lambda_1$ 
+A "bad lattice basis": cannot efficiently calculate $lambda_1$ 
 
 ])
 
@@ -728,7 +728,7 @@ $ rho_s (x) = e^((- pi ||x||^2)\/s^2) $ where $x in RR^n$
 
 The standard discrete gaussian is when $s = 1$ 
 
-The continuous gaussian is derived by integrading $rho_s$ and is defined by 
+The continuous gaussian is derived by integrating $rho_s$ and is defined by 
 
 $ (rho_s (x))/s^n $ 
 
@@ -737,9 +737,9 @@ $ (rho_s (x))/s^n $
 #defn([Discrete Gaussian distribution],[
 
 
-We paramterize this distribution with lattice $cal(L) subset.eq RR^n$ and "width" $s$ as well as $c in RR^n$ and define $ cal(D)_(c, cal(L), s) = cases(rho_s (x) "if" x in c + cal(L), 0 "otherwise")  $     
+We parametrize this distribution with lattice $cal(L) subset.eq RR^n$ and "width" $s$ as well as $c in RR^n$ and define $ cal(D)_(c, cal(L), s) = cases(rho_s (x) "if" x in c + cal(L), 0 "otherwise")  $     
 
-For example, if $c = 0$ then points furthere away from the origin have less likelihood of being sampled 
+For example, if $c = 0$ then points further away from the origin have less likelihood of being sampled 
 
 ])
 
@@ -749,14 +749,14 @@ Not really given in the lecture
 
 However it was mentioned that setting $s$ to "larger" values creates a distribution that is more "spread out or closer to uniform" (making it easier to sample from) 
 
-For sufficiently small values of $s$ we cannot efficeintly sample by the $"GapSVP"_gamma$ problem 
+For sufficiently small values of $s$ we cannot efficiently sample by the $"GapSVP"_gamma$ problem 
 
 ])
 
 #theorem([Hardness of $"GapSVP"_gamma arrow.double$ Hardness of $"decisionLWE"_(n,m,q,chi)$ (rough idea)],[
 
 
-We set the following paramterization: $m = poly(n); q lt.eq 2^(n^0.99); gamma = O^tilde (n/alpha), s = alpha q > sqrt(2 n)$ 
+We set the following parametrization: $m = poly(n); q lt.eq 2^(n^0.99); gamma = O^tilde (n/alpha), s = alpha q > sqrt(2 n)$ 
 
 The general concept is to keep sampling from $cal(D)_(cal(L), s_i)$ where smaller and smaller values of $s_i$ which is possible by assumption
 
@@ -798,7 +798,7 @@ our goal will be to define a more efficient hash function
 
 Suppose that $A in ZZ_q^(n times m)$  and that the first column of $A $ is $vec(a_1, dots.v, a_n) unif ZZ_q^n$
 
-We define $A$ pictorally: $A = mat(a_1, a_n, a_(n-1), a_(n-2), dots; dots.v, a_1, a_n, a_(n-1), dots; dots.v, dots.v, a_1, a_n, dots; dots.v, dots.v, dots.v, a_1, dots;dots.v, dots.v, dots.v, dots.v, dots; a_n, a_(n-1), a_(n-2), a_(n-3), dots)$ 
+We define $A$ pictorially: $A = mat(a_1, a_n, a_(n-1), a_(n-2), dots; dots.v, a_1, a_n, a_(n-1), dots; dots.v, dots.v, a_1, a_n, dots; dots.v, dots.v, dots.v, a_1, dots;dots.v, dots.v, dots.v, dots.v, dots; a_n, a_(n-1), a_(n-2), a_(n-3), dots)$ 
 
 As we can see the columns of $A$ are generated by permutations of the first column, which means that $A$ can has storage cost $n log(q)$ ($A$ can be reduced to a "short description" )
 
@@ -852,7 +852,7 @@ The security of this hash function follows as long as ring SIS holds and we pick
 
 Let $p_1, dots, p_l unif ZZ_q [x] \/ x^n - 1$  and $q_1, dots, q_l arrow.l chi$ 
 
-We denote $chi$ to be a distributino over $ZZ_q [x] \/ x^n - 1$ where the coefficients are small
+We denote $chi$ to be a distribution over $ZZ_q [x] \/ x^n - 1$ where the coefficients are small
 
 Problem: given $(p_1, dots, p_l, r)$ find $q_1, dots, q_l$ such that $sum p_i q_i = r mod(q, x^n -1)$    
 
@@ -860,7 +860,7 @@ Problem: given $(p_1, dots, p_l, r)$ find $q_1, dots, q_l$ such that $sum p_i q_
 
 #theorem([Definition 9.0.6 is not secure],[
 
-Intution: $x^n - 1$ is factorable
+Intuition: $x^n - 1$ is factorable
 
 #lemma([high chance of factorability of],[
 
@@ -899,7 +899,7 @@ find $q_1, dots, q_l$ such that $sum p_i q_i = 0$ given $p_1, dots, p_l$ where $
 
 If the hash function is not secure then an efficient adversary $cal(A)$ can find $q_1, dots, q_l$ and $q'_1, dots, q'_l$ that both multiply to with the $p$'s to equal $r$ 
 
-Then a solution to ring SIS regualr would be $q_1 - q'_1, dots, q_l - q'_l$ 
+Then a solution to ring SIS regular would be $q_1 - q'_1, dots, q_l - q'_l$ 
 
 ])
 
@@ -965,7 +965,7 @@ $a s = a' (r s) + (e' s)$
 
 then $b - a s = "small" + floor(q/2) mu mod(q, x^n+1)$
 
-This implies if all coeffeicient of $b - a s$ small then $mu = 0$ else $mu = 1$    
+This implies if all coefficient of $b - a s$ small then $mu = 0$ else $mu = 1$    
 
 Security: invoke ring LWE assumption
 
@@ -973,7 +973,7 @@ Security: invoke ring LWE assumption
 
 #defn([prisoner's game],[
 
-7 prisoners are each assigned a hat with half probability each of bein red or blue
+7 prisoners are each assigned a hat with half probability each of being red or blue
 
 prisoners can guess if they are wearing red, blue, pass
 
@@ -999,7 +999,7 @@ Conceptually, we take a vector and "sparsify" it using a function expand($y$) $a
 
 If $n$ is a security parameter then we divide $y$ into blocks of size $L = o(log(n))$ and expand each of these blocks into a corresponding block of $z$ of size $2^L$. The result is the expansion of the size of $y$, and both $y$ and $z$ have the same number of blocks 
 
-Speficially, each block in $z$ is a "one-hot" vector with a $1$ in position $i$ where $i$ is the integer representation of the corresponding block in $y$
+Specifically, each block in $z$ is a "one-hot" vector with a $1$ in position $i$ where $i$ is the integer representation of the corresponding block in $y$
 
 Then, for a hash key $M in ZZ_2^(n times q)$ we define the hash function $ h_M (x) = M dot "expand"(x) $ where $q>k>n, x in ZZ_2^k, "expand"(x) in ZZ_2^q$  
 
@@ -1033,7 +1033,7 @@ Case 1: if $v$ is uniform then $ Pr[v dot ("expand"(y) - "expand"(y')) = 0] = 1/
 
 Case 2: if $v$ is a LPN sample then $v$ has the form $s M^T + e$ then $ v dot ("expand"(y) - "expand"(y')) &= \ s M^T + e ("expand"(y) - "expand"(y')) &= \ 0 + e dot ("expand"(y) - "expand"(y'))  $ 
 
-Then roughly speaking (details were skipped in lecture) due to sparness we have $ Pr[e dot ("expand"(y) - "expand"(y')) = 0] >> 1/2 $
+Then roughly speaking (details were skipped in lecture) due to sparseness we have $ Pr[e dot ("expand"(y) - "expand"(y')) = 0] >> 1/2 $
 
 If we run $cal(B)$ some $n$ times on inputs $v_1, dots, v_n$ then the expected value is $ theta := EE_i [v_i dot ("expand"(y) - "expand"(y'))] $
 
@@ -1062,7 +1062,7 @@ this looks a lot like discrete log (this is insecure against quantum adversaries
 ])
 
 #note([
-quantum resistant cryptographic constructions/assumptiosn often rely on $X$ having little algebraic structure 
+quantum resistant cryptographic constructions/assumptions often rely on $X$ having little algebraic structure 
 ])
 
 #defn([regular group actions],[
@@ -1093,7 +1093,7 @@ groups action operation
 
 ])
 
-We define some hardness asumptions for effective group action (EGA)
+We define some hardness assumptions for effective group action (EGA)
 
 #defn([One-way EGA],[
 
@@ -1106,7 +1106,7 @@ $cal(A)$ is implicitly given $f_x$ since we assume that $f_x$ is efficiently com
 
 #defn([Weak Unpredictable EGA],[
 
-Given poly many tuples of the form $(x_i, g star x_i)$ where $g unif G$ and each $x_i unif X$ there is no PPT adversary that can comput $g star x^*$ for a given challenge $x^* arrow.l X$
+Given poly many tuples of the form $(x_i, g star x_i)$ where $g unif G$ and each $x_i unif X$ there is no PPT adversary that can compute $g star x^*$ for a given challenge $x^* arrow.l X$
 
 This is implied from One-way EGA
 
@@ -1118,7 +1118,7 @@ there is no PPT adversary that can distinguish tuples of the form $(x_i, g star 
 
 ])
 
-#defn([Pesudorandom functions from EGA],[
+#defn([Pseudorandom functions from EGA],[
 
 
 Let the key $k$  be $(g_0, g_1, dots, g_l) unif G$ 
@@ -1127,7 +1127,7 @@ and let the input $x$ (a bitstring) be of the form $(s_1, dots, s_l)$
 
 let $x_0$ be the "origin" of $X$
 
-then we define the pesudorandom function $ F(k,x) = (g_0 prod_(i=1)^l g_i^(s_i)) star x_0 = g_0 star (g_1^s_1 star (g_2^s^2 star dots (g_l^(s_l) star x_0))) $ 
+then we define the pseudorandom function $ F(k,x) = (g_0 prod_(i=1)^l g_i^(s_i)) star x_0 = g_0 star (g_1^s_1 star (g_2^s^2 star dots (g_l^(s_l) star x_0))) $ 
 
 where the second equality holds by the condition for a group action (12.1.1) and the implicit assumption that $G$ is abelian, and denote $g_i^0 = e$ where $e$ is the identity of $G$
 ])
@@ -1174,7 +1174,7 @@ additionally, $s star c_1 = s star r star x = r star s star x = r star overline(
 
 ($G$ is once again implicitly abelian)  
 
-Then corectness follows
+Then correctness follows
 
 ])
 
@@ -1340,7 +1340,7 @@ $ F_1 &= "PRF"(k, x) =  G^(x_l)(G^(x_(l-1))(dots(G^(x_1)(k))dots) \ F_2 &= G^(x_
 
 Two distributions $D_1, D_2$ over a set $cal(Y)$ are said to be computationally (resp. staistically) indistinguisable if no efficient (resp. computationally unbounded) quantum algorithm $A$ can distinguish a sample of $D_1$ from a sample of $D_2$
 
-In other words, for all $A$ there is a negligible function $epsilon$ such that $ |Pr_(y arrow.l D_1) [A(y)=1] - Pr_(y arrow.l D_2) [A(y)=1]| lt epsilon $    
+In other words, for all $A$ there is a negligible function $epsilon$ such that $ |Pr_(y arrow.l D_1) [A(y)=1] - Pr_(y arrow.l D_2) [A(y)=1]| lt.eq epsilon $    
 
 
 (from definition 2.4 from How to Construct Quantum Random Functions by Mark Zhandry)
@@ -1349,7 +1349,7 @@ In other words, for all $A$ there is a negligible function $epsilon$ such that $
 
 #defn([Oracle Indistinguishability],[
 
-Two distributions $D_1, D_2$ over a set $cal(Y)$ are computationally (resp. staistically) oracle-indistinguishable if, for all sets $cal(X)$ no efficient (resp. computationally unbounded) quantum algorithm $B$ can distinguish $D_1^(cal(X))$ from $D_2^(cal(X))$ using a polynomial number of quantum queries. that is, for all $B$ and $cal(X)$ there is a neglible function $epsilon$ such that $ |Pr_(O arrow.l D_1^(cal(X)))[B^(ket(O))()=1] - Pr_(O arrow.l D_2^(cal(X)))[B^(ket(O))()=1]| lt epsilon $            
+Two distributions $D_1, D_2$ over a set $cal(Y)$ are computationally (resp. staistically) oracle-indistinguishable if, for all sets $cal(X)$ no efficient (resp. computationally unbounded) quantum algorithm $B$ can distinguish $D_1^(cal(X))$ from $D_2^(cal(X))$ using a polynomial number of quantum queries. that is, for all $B$ and $cal(X)$ there is a neglible function $epsilon$ such that $ |Pr_(O arrow.l D_1^(cal(X)))[B^(ket(O))()=1] - Pr_(O arrow.l D_2^(cal(X)))[B^(ket(O))()=1]| lt.eq epsilon $            
 
 (definition 2.5)
 
@@ -1369,15 +1369,33 @@ Fix sets $cal(X)$ and $cal(Y)$ and a distribution $D$ on $cal(Y)$.Fix an integer
 distribution $D$ on $Y$, any integer $l$, and any quantum algorithm $A$ making $q$ queries to an oracle $H : cal(X) arrow cal(Y)$, the following two cases are indistinguishable, except with probability less than $(C_0 q^3)/l$:
 
 1. $H(x) = y_x$ where $y$ is a list of samples of $D$ of size $|cal(X)|$.
-2. $H$ is drawn from the small-range distribution with $l$ samples of $D$],[Very complicated])
+2. $H$ is drawn from the small-range distribution with $l$ samples of $D$
+
+#note([In the lecture we denoted this result as $cal(A)^(ket(D)) approx_(s, epsilon) cal(A)^(ket("SR"_r (D)))$ where $epsilon = O(q^3/r)$ where $r = l$ as above with $r>q^3$    ])
+
+],[See the reference reading])
 
 #theorem([
 
-If G is a standard-secure PRG, then PRF from 13.1.3 is a QPRF.
+If G is a standard-secure PRG, then PRF from 13.1.3 is a QPRF as described in 13.1.2
 
-The basic idea of the proof is that under the assumption thet 
+],[
 
-],[])
+(sketch only)
+
+Let $F_1, dots, F_l$ be the random functions from 13.1.3
+
+We would like to show that $cal(A)^(ket(F_1)) approx_c cal(A)^(ket(F_2)) approx_c dots approx_c cal(A)^(ket(F_l))$ 
+
+Where $cal(A)$ is an adversary which has quantum query access to $F_1, dots, F_l $
+
+Using the small range lemma (13.1.8) we can see that $ cal(A)^(ket(D_i)) approx_c cal(A)^ket("SR"_r (D_i)) $ where $D_i$ is the distribution of the ouputs of $F_i$ so that $cal(A)^(ket(D_i)) "is equivalent to" cal(A)^(ket(F_i))$ and $r$ is polynomial 
+
+If we can show that $cal(A)^ket("SR"_r (D_i)) approx_c cal(A)^ket("SR"_r (D_j))$ for all $i,j in 1, dots, l$
+
+Then $cal(A)^(ket(D_1)) approx_c cal(A)^(ket(D_l))$ 
+
+])
 
 = Lecture 14 Quantum Query Security continued, signatures
 
@@ -1458,9 +1476,9 @@ output $"Verify"(v k, (m, s_1, s_2), sigma)$
 
 ])
 
-#theorem([14.0.5 is secure according to 14.0.2],[
+#theorem([14.0.5 is not secure according to 14.0.2],[
 
-If $cal(S)$ is secure according to definition 14.0.1, then $cal(S)^tilde$ is also secure against 14.0.1 but insecure against 14.0.2  
+If $cal(S)$ is secure according to definition 14.0.1, then $cal(S)^tilde$ is  secure against 14.0.1 but insecure against 14.0.2  
 
 ],[
 
@@ -1553,12 +1571,15 @@ First, we consider an adversary $cal(A)$ which performs the classical chosen mes
 
 If the adversary $cal(A)$ performs a quantum query attack via quantum queries $q_i = sum alpha_(m,y) ket(m) ket(y)$ for $i = 1, dots, q$, the challenger will need to sign an expotential number of messages. However, using the small range lemma (13.1.8) the number of $l$ hashes needed to sign is reduced to a large polynomial (see 13.1.8). 
 
-By assumption $cal(A)$ is able to $q+1$ valid message/signature pairs (unique) $(m^(*)_i, sigma^*_i, dots, m^(*)_(q+1), sigma^*_(q+1))$ each corresponding to random hashes $h_1, dots, h_(q+1)$  
+By assumption $cal(A)$ is able to $q+1$ valid message/signature pairs (unique) $(m^(*)_1, sigma^(tilde)_1, dots, m^(*)_(q+1), sigma^(tilde)_(q+1))$ each corresponding to random hashes $h_1^*, dots, h_(q+1)^*$  
+
+Let $cal(B)$ be an algorithm which breaks the security of $cal(S)$. Let $"ch"_c$ be the classical challenger and $"ch"_q$ be the quantum challenger. $cal(B)$ will make $h_1, dots, h_q$ queries to $"ch"_c$ and receive back $sigma_1, dots, sigma_q$        
 
 Since $l > q+1$ (see 13.1.8) then we can consider the 2 cases:
 
-1: $exists i$ such that $h_i$ was signed in the interaction between $cal(A) $ and challenger. Then we have a forgery for message $h_i$ the security of classical scheme $cal(S)$ is broken      
+1: $exists i$ such that $h_i$ was signed in the interaction between $cal(A) $ and $"ch"_q$ that is not $h_1, dots, h_q$  Then we have a forgery for message $h_i$ and the security of classical scheme $cal(S)$ is broken      
 
+2: $exists.not i$ such that $h_i$ was signed in the interaction between $cal(A)$ and $"ch"_q$ that is not $h_1, dots, h_q$. We can pick a one of the $q$ respones to the queries that $cal(A)$ made and perform a measurement and succeed with $1/q$ probability. 
 
-2: $exists.not i$ such that $h_i$ was signed in the interaction between $cal(A)$ and challenger. We can pick a one of the $q$ respones to the queries that $cal(A)$ made and perform a measurement and succeed with $1/q$ probability. [Zhandry, Boneh 13] argues that two of the message/signature output by $cal(A)$ are in some sense "the same" in the sense that they correspond to the same query.   
+[Zhandry, Boneh 13] argues that two of the message/signature output by $cal(A) arrow (m^(*)_1, sigma^(tilde)_1, dots, m^(*)_(q+1), sigma^(tilde)_(q+1))$ are in some sense "the same" in the sense that they correspond to the same query.   
 ])
